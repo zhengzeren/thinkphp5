@@ -5,7 +5,10 @@
     class Index extends Controller
     {
         public function index(){
-            return view('index');
+            return view();
+        }
+        public function welcome(){
+        	return view();
         }
     }
  ?>

@@ -15,12 +15,6 @@
 
     <body>
         <div class="x-nav">
-            <span class="layui-breadcrumb">
-                <a href="">首页</a>
-                <a href="">演示</a>
-                <a>
-                    <cite>导航元素</cite></a>
-            </span>
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
                 <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
             </a>
@@ -52,31 +46,39 @@
                                         <th>
                                             <input type="checkbox" name="" lay-skin="primary">
                                         </th>
-                                        <th>商品编号</th>
-                                        <th>商品名称</th>
-                                        <th>分类</th>
-                                        <th>来源厂家</th>
-                                        <th>商品简介</th>
-                                        <th>商品状态</th>
-                                        <th>商品总库存</th>
-                                        <th>商品原价</th>
-                                        <th>商品现价</th>
-                                        <th>操作</th></tr>
+                                        <th style="text-align:center;">商品</th>
+                                        <th style="text-align:center;">商品编号</th>
+                                        <th style="text-align:center;">商品名称</th>
+                                        <th style="text-align:center;">分类</th>
+                                        <th style="text-align:center;">商品简介</th>
+                                        <th style="text-align:center;">商品图片</th>
+                                        <th style="text-align:center;">商品状态</th>
+                                        <th style="text-align:center;">商品总库存</th>
+                                        <th style="text-align:center;">商品价格</th>
+                                        <th style="text-align:center;">操作</th></tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="" lay-skin="primary"></td>
-                                        <td>2017009171822298053</td>
-                                        <td>老王:18925139194</td>
-                                        <td>7829.10</td>
-                                        <td>7854.10</td>
-                                        <td>待确认</td>
-                                        <td>未支付</td>
-                                        <td>未发货</td>
-                                        <td>其他方式</td>
-                                        <td>申通物流</td>
-                                        <td class="td-manage">
+                                        <td style="text-align:center;">2017009171822298053</td>
+                                        <td style="text-align:center;">老王:18925139194</td>
+                                        <td style="text-align:center;">7829.10</td>
+                                        <td style="text-align:center;">7854.10</td>
+                                        <td style="text-align:center;">
+                                            <a href="javaScript:;" onclick="xadmin.open('商品简介','{:url('admin/shop/bi')}',400,350)">
+                                                查看简介
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <a href="javaScript:;" onclick="xadmin.open('商品图片','{:url('admin/shop/pm')}',800,600)">
+                                                查看图片
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center;">上架</td>
+                                        <td style="text-align:center;">其他方式</td>
+                                        <td style="text-align:center;">申通物流</td>
+                                        <td class="td-manage" style="text-align:center;">
                                             <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                                                 <i class="layui-icon">&#xe601;</i>
                                             </a>
