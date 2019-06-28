@@ -5,11 +5,19 @@
     class Admin extends Controller
     {
         public function index(){
-            return view();
+            $list=Db::table('admin')->order('id','desc')->paginate(2);
+            // dump($list);
+            $this->assign('list',$list);
+            return $this->fetch();
         }
         public function adminadd(){
             return view();
         }
+        public function insert(){
+            dump(input('get.'));
+        }
+
+
         public function adminedit(){
             return view();
         }
