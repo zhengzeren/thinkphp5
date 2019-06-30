@@ -26,11 +26,10 @@
                           <span class="x-red">*</span>登录名
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="username" name="username" required="" lay-verify="required"
+                          <input type="text" id=username" name="adminname" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>将会成为您唯一的登入名
                       </div>
                   </div>
                   <div class="layui-form-item">
@@ -42,7 +41,6 @@
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
-                          <span class="x-red">*</span>将会成为您唯一的登入名
                       </div>
                   </div>
                   <div class="layui-form-item">
@@ -60,8 +58,8 @@
                   <div class="layui-form-item">
                       <label class="layui-form-label"><span class="x-red">*</span>角色</label>
                       <div class="layui-input-block">
-                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
-                        <input type="checkbox" name="like1[read]" lay-skin="primary" title="普通管理员">
+                        <input type="checkbox" name="work" value="1" lay-skin="primary" title="超级管理员" checked="">
+                        <input type="checkbox" name="work" value="0" lay-skin="primary" title="普通管理员">
 
                       </div>
                   </div>
@@ -75,15 +73,6 @@
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           6到16个字符
-                      </div>
-                  </div>
-                  <div class="layui-form-item">
-                      <label for="L_repass" class="layui-form-label">
-                          <span class="x-red">*</span>确认密码
-                      </label>
-                      <div class="layui-input-inline">
-                          <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                          autocomplete="off" class="layui-input">
                       </div>
                   </div>
                   <div class="layui-form-item">
@@ -104,26 +93,26 @@
                 layer = layui.layer;
 
                 //自定义验证规则
-                // form.verify({
-                //     nikename: function(value) {
-                //         if (value.length < 5) {
-                //             return '昵称至少得5个字符啊';
-                //         }
-                //     },
-                //     pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                //     repass: function(value) {
-                //         if ($('#L_pass').val() != $('#L_repass').val()) {
-                //             return '两次密码不一致';
-                //         }
-                //     }
-                // });
+                 form.verify({
+                     nikename: function(value) {
+                         if (value.length < 5) {
+                             return '昵称至少得5个字符啊';
+                         }
+                     },
+                     pass: [/(.+){6,12}$/, '密码必须6到12位'],
+                     repass: function(value) {
+                         if ($('#L_pass').val() != $('#L_repass').val()) {
+                             return '两次密码不一致';
+                         }
+                     }
+                 });
 
                 //监听提交
                 form.on('submit(add)',
                 function(data) {
                     console.log(data);
                     //发异步，把数据提交给php
-                    $.get("{:url('admin/admin/insert')}",data.field);
+                    $.post("{:url('admin/admin/insert')}",data.field);
                     layer.alert("增加成功", {
                         icon: 6
                     },
