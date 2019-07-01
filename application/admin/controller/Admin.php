@@ -3,7 +3,7 @@
     use app\admin\model\Admin as AdminModel;
     use think\Controller;
     use think\Request;
-    class Admin extends Controller
+    class Admin extends Base
     {
         // public function index(){
         //     $list=Db::table('admin')->order('id','desc')->paginate(2);
@@ -11,7 +11,7 @@
         //     $this->assign('list',$list);
         //     return $this->fetch();
         // }
-        
+
         public function index(){
             $list=AdminModel::where('state'>=0)->order('id desc')->paginate(2);
             $this->assign('list',$list);

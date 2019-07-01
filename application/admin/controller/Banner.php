@@ -2,7 +2,7 @@
     namespace app\admin\controller;
     use think\Controller;
     use think\Db;
-    class Banner extends Controller
+    class Banner extends Base
     {
         public function index(){
             return view();
