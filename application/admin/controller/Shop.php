@@ -2,7 +2,7 @@
     namespace app\admin\controller;
     use think\Controller;
 
-    class Shop extends Controller
+    class Shop extends Base
     {
         public function index(){
             return view();

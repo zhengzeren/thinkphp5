@@ -2,10 +2,10 @@
  namespace app\admin\controller;
  use think\Controller;
  use think\Request;
- class Base extends Controller
+ class Base extends controller
  {
     public function _initialize(){
-        $a=session('user');
+        $a=session('admin');
         if (empty($a)) {
             $this->redirect('admin/login/index');
         }
