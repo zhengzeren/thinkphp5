@@ -25,9 +25,9 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
+                            <form class="layui-form layui-col-space5" onsubmit="" action="{:url('admin/ss')}" method='post'>
                                 <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                    <input type="text" name="adminname"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
                                 </div>
                                 <div class="layui-inline layui-show-xs-block">
                                     <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
@@ -128,6 +128,13 @@
         });
       });
 
+      function ss($this){
+        $name=$this.serialize();
+        $.post("{:url('admin/ss')}",$name,function(data){
+          
+        });
+      }
+
        /*用户-停用*/
       function member_stop(obj,id,state){
           layer.confirm('确认要禁用吗？',function(index){
@@ -185,9 +192,12 @@
               $id=$(".layui-form-checked").eq(i).parents('td').next('td').html();
               $arr[i]=$id;
             }
-            console.log($arr);
-            // layer.msg('删除成功', {icon: 1});
-            // $(".layui-form-checked").not('.header').parents('tr').remove();
+            //console.log($arr);
+            $.post("{:url('admin/admin/delall')}",{id:$arr});
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+            // 可以对父窗口进行刷新
+            xadmin.father_reload();
         });
       }
     </script>
