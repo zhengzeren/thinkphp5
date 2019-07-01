@@ -33,6 +33,8 @@
         <div class="left-nav">
             <div id="side-nav">
                 <ul id="nav">
+                    {if condition="$Think.session.admin.work == 1"}
+                    <!-- {{$Think.session.admin.work}==1?'超级管理员':'普通管理员'} -->
                     <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
@@ -46,6 +48,22 @@
                             </li>
                         </ul>
                     </li>
+                    {else /}
+                    <!-- {{$Think.session.admin.work}==1?'超级管理员':'普通管理员'} -->
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
+                            <cite>修改密码</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('管理员列表','{:url('admin/admin/index')}')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>管理员列表</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    {/if}
                     <li>
                         <a href="javascript:;">
                             <i class="iconfont left-nav-li" lay-tips="会员管理">&#xe6b8;</i>

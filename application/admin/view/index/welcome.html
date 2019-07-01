@@ -15,6 +15,25 @@
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
           <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+    <script>
+        // setInterval("go()",1000);
+        // function go(){
+        //     document.getElementById('myclock').innerHTML = new Date().toLocaleString();
+        // }
+        setInterval("showTime()",1000);
+        function showTime()
+        {
+           var obj,date;
+           obj = new Date();
+           date = obj.getYear()<1900?(1900+obj.getYear()+" 年 "):obj.getYear()+" 年 ";
+           date += obj.getMonth()+1+" 月 ";
+           date += obj.getDate()+" 日 ";
+           date += obj.getHours()+" 点 ";
+           date += obj.getMinutes()+" 分 ";
+           date += obj.getSeconds()+" 秒 ";
+           document.getElementById("myclock").innerHTML = "当前时间 ： "+date;
+        }
+    </script>
     </head>
     <body>
         <div class="layui-fluid">
@@ -23,7 +42,13 @@
                     <div class="layui-card">
                         <div class="layui-card-body ">
                             <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">{$Think.session.admin.adminname}</span>！当前时间:2018-04-25 20:50:53
+                                <span class="x-red">
+                                    {$Think.session.admin.adminname}
+                                </span>
+                                <span id="myclock">
+                                    当前时间:
+                                </span>
+                                
                             </blockquote>
                         </div>
                     </div>
