@@ -134,14 +134,14 @@
                 //console.log(id);
                 //发异步把用户状态进行更改
                 if($(obj).attr('title')=='禁用'){
-                $.post("{:url('admin/admin/stateupdate')}",{'id':id,'state':state});
+                $.post("{:url('admin/admin/stateupdate')}",{'id':id,'state':state},);
                 $(obj).attr('title','启用')
+                $(obj).attr('onclick','member_start(this,'+id+','+state+')');
                 $(obj).find('i').html('&#xe62f;');
-
                 $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
                 layer.msg('已停用!',{icon: 5,time:1000});
                 // 可以对父窗口进行刷新
-                xadmin.father_reload('tr');
+                //xadmin.father_reload('tr');
               }
           });
       }
@@ -151,12 +151,12 @@
           if($(obj).attr('title')=='启用'){
           $.post("{:url('admin/admin/stateupdate')}",{'id':id,'state':state});
           $(obj).attr('title','禁用')
+          $(obj).attr('onclick','member_stop(this,'+id+','+state+')');
           $(obj).find('i').html('&#xe601;');
-
           $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
           layer.msg('已启用!',{icon: 5,time:1000});
           // 可以对父窗口进行刷新
-          xadmin.father_reload('tr');
+          //xadmin.father_reload('tr');
           }
         });
       }
@@ -170,10 +170,6 @@
               layer.msg('已删除!',{icon:1,time:1000});
           });
       }
-      //全选
-      function alla(){
-        $(".layui-unselect layui-form-checkbox").addClass("layui-form-checked");
-      }
       //批量删除
       function delAll (argument) {
 
@@ -181,7 +177,7 @@
         console(data);
         layer.confirm('确认要删除吗？'+data,function(index){
             //捉到所有被选中的，发异步进行删除
-            $("name=ckb")
+            $(".layui-form-checked").parents('tr').
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
         });
