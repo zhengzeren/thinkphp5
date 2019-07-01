@@ -173,13 +173,21 @@
       //批量删除
       function delAll (argument) {
 
-        var data = tableCheck.getData();
-        console(data);
-        layer.confirm('确认要删除吗？'+data,function(index){
+        // var data = tableCheck.getData();
+        // console(data);
+        layer.confirm('确认要删除吗？',function(index){
             //捉到所有被选中的，发异步进行删除
-            $(".layui-form-checked").parents('tr').
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
+            
+            // $id=$(".layui-form-checked").parents('td').next('td').html();
+            $num=$(".layui-form-checked").length;
+            $arr=[];
+            for (var i = 0; i<$num; i++) {
+              $id=$(".layui-form-checked").eq(i).parents('td').next('td').html();
+              $arr[i]=$id;
+            }
+            console.log($arr);
+            // layer.msg('删除成功', {icon: 1});
+            // $(".layui-form-checked").not('.header').parents('tr').remove();
         });
       }
     </script>
