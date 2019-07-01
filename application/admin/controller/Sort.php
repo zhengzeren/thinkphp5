@@ -13,10 +13,12 @@
             return view('',['arr'=>$arr,'newarr'=>$newarr]);
         }
         public function update(){
-            // $arr=input('get.');
-            // dump($arr);
-            // db('type')->updata($arr);
-            echo '1';
+            $arr['id']=input('get.id');
+            $arr['state']=input('get.state');
+            // print_r($arr);
+            $m=db('type')->update($arr);
+            return $m;
+
         }
     }
  ?>

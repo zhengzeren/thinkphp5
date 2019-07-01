@@ -36,7 +36,7 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
+ <form class="layui-form layui-col-space5">
                                 <div class="layui-input-inline layui-show-xs-block">
                                     <input class="layui-input" placeholder="分类名" name="cate_name"></div>
                                 <div class="layui-input-inline layui-show-xs-block">
@@ -83,9 +83,10 @@
             </td>
             <td>
  {if $v.state==1}
- <input type="checkbox" name="state" id="{$v.id}" lay-text="开启|停用"  checked="" lay-skin="switch" layui-filter="switchTest">
- {else}
- <input type="checkbox" name="switch" id="{$v.id}" lay-text="开启|停用" lay-skin="switch" layui-filter="switchTest">
+ <input type="checkbox" name="switch"  lay-text="开启|停用" id="{$v.id}"  checked="" lay-skin="switch" lay-filter="switchTest">
+{else}
+<input type="checkbox" name="switch"  lay-text="开启|停用" id="{$v.id}" lay-skin="switch" lay-filter="switchTest">
+
  {/if}
             </td>
             <td class="td-manage">
@@ -117,19 +118,22 @@
             </div>
         </div>
         <script>
-          layui.use(['form'], function(){
+           layui.use(['form'], function(){
             form = layui.form;
             form.on('switch(switchTest)', function(data){
-              id=data.elem.id
-              state=this.checked ? '1' : '0 '
-              console.log(data)
-              $.get("{：url('admin/sort/update')}",{id:id,state:state})
-               layer.msg('开关checked：'+ (this.checked ? '1' : '0'), {
-                 offset: '6px'
-               });
-             });
+                 id=data.elem.id
+                 state=this.checked ? '1' : '0'
+                 console.log(data.elem.id)
+                 $.get("{:url('admin/sort/update')}",{id:id,state:state},function(data){
+                  alert(data);
+                 })
+                layer.msg('开关checked：'+ (this.checked ? '1' : '0'), {
+                  offset: '6px'
+                });
 
+              });
           });
+
 
            /*用户-删除*/
           function member_del(obj,id){
