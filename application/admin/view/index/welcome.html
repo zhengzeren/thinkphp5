@@ -41,11 +41,12 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <blockquote class="layui-elem-quote">欢迎管理员：
-                                <span class="x-red">
-                                    {$Think.session.admin.adminname}
+                            <blockquote class="layui-elem-quote">
+                                欢迎{$Think.session.admin.work==1?'超级管理员':'普通管理员'}：
+                                <span class="x-red" style="font-size:24px;color:black;">
+                                     {$Think.session.admin.adminname} 
                                 </span>
-                                <span id="myclock">
+                                <span id="myclock" style="margin-left:15px">
                                     当前时间:
                                 </span>
                                 
