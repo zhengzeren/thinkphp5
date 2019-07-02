@@ -84,5 +84,37 @@
             return "新增子栏目成功,ID:".$type->id;
 
         }
+
+        public function addfid(){
+            return view();
+        }
+
+        public function add2(){
+            $name=input('post.name');
+            $type = new TypeModel([
+                'name'  =>  $name,
+                'pid' =>  0,
+                'path' => '0,'
+            ]);
+            $type->save();
+            // 获取自增ID
+            return "新增子栏目成功,ID:".$type->id;
+        }
+
+        public function del(){
+            $id=input('post.id');
+            //dump($id);
+            $list1=TypeModel::field('pid')->select();
+            foreach ($list1 as $v) {
+                $newarr[]=$v['pid'];
+            }
+            //dump(in_array($id,$newarr));
+            if(in_array($id,$newarr)==true){
+                return 0;
+            }else{
+                $res=TypeModel::where('id',$id)->delete();
+                return 1;
+            }
+        }
     }
  ?>
