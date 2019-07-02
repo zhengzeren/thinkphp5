@@ -22,15 +22,15 @@
         <div class="inner">
             <div class="pull-left">
                 <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-                <a href="agent_level.html">网店代销</a>
-                <a href="temp_article/udai_article4.html">帮助中心</a>
             </div>
             <div class="pull-right">
-                <a href="login.php"><span class="cr">登录</span></a>
-                <a href="login.php?p=register">注册</a>
-                <a href="udai_welcome.php">我的U袋</a>
-                <a href="udai_order.php">我的订单</a>
-                <a href="udai_integral.php">积分平台</a>
+                <a href="{:url('login/login')}" class="dz"><span class="cr">登录</span></a>
+                <a href="{:url('login/register')}" class="dz"><span class="cr">注册</span></a>
+                <a href="{:url('index/setting')}"><span class="cr" id="name"></span></a>
+                <a href="javascript:;" id="tc"><span class="cr">退出登录</span></a>
+                <a href="{:url('welcome/welcome')}" class="my">我的U袋</a>
+                <a href="{:url('order/order')}" class="my">我的订单</a>
+                <a href="{:url('welcome/collection')}" class="my">我的收藏</a>
             </div>
         </div>
     </div>
@@ -1081,4 +1081,37 @@
         </div>
     </div>
 </body>
+    <script>
+    $.post("{:url('index/panduan')}",function(data) {
+        /*optional stuff to do after success */
+        // alert(data);
+        if (data){
+            $(".dz").css("display","none");
+            var id=data;
+            $.post("{:url('index/aa')}", {id:id}, function(data) {
+                /*optional stuff to do after success */
+                // alert(data);
+                $("#name").html(data);
+                $("#name").show();
+            });
+        }else{
+            $(".dz").show();
+            $("#tc").hide();
+            $(".my").attr('href','javascript:;');
+        }
+    });
+    $("#tc").click(function(event) {
+        /* Act on the event */
+        if (confirm("确定退出当前用户?")) {
+            $.post("{:url('index/tc')}", function(data) {
+            /*optional stuff to do after success */
+            alert("已退出当前用户");
+            location="{:url('index/index')}";
+            });
+        }else{
+            return
+        }
+
+    });
+</script>
 </html>
