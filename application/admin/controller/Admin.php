@@ -91,7 +91,7 @@
 
         public function edit(){
           $id=input('post.id');
-          dump(input('post.'));
+          //dump(input('post.'));
           $res=AdminModel::update(input('post.'));
           if($res){
              return "修改成功";

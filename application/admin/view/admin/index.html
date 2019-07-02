@@ -128,14 +128,7 @@
         });
       });
 
-      function ss($this){
-        $name=$this.serialize();
-        $.post("{:url('admin/ss')}",$name,function(data){
-          
-        });
-      }
-
-       /*用户-停用*/
+      /*用户-停用*/
       function member_stop(obj,id,state){
           layer.confirm('确认要禁用吗？',function(index){
                 //console.log(id);
