@@ -24,10 +24,16 @@
                 <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
             </div>
             <div class="pull-right">
+                {if $phone==null}
                 <a href="{:url('login/login')}" class="dz"><span class="cr">登录</span></a>
                 <a href="{:url('login/register')}" class="dz"><span class="cr">注册</span></a>
-                <a href="{:url('index/setting')}"><span class="cr" id="name"></span></a>
+                {else /}
+                <a href="{:url('welcome/setting')}"><span class="cr" id="name">{$phone}</span></a>
                 <a href="javascript:;" id="tc"><span class="cr">退出登录</span></a>
+                {/if}
+
+
+
                 <a href="{:url('welcome/welcome')}" class="my">我的U袋</a>
                 <a href="{:url('order/order')}" class="my">我的订单</a>
                 <a href="{:url('welcome/collection')}" class="my">我的收藏</a>
@@ -69,233 +75,39 @@
         <div class="nav-box inner">
             <div class="all-cat">
                 <div class="title"><i class="iconfont icon-menu"></i> 全部分类</div>
-                <div class="cat-list__box">
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-skirt ce"></i> 女装
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>下装</li>
-                            <li>上装</li>
-                            <li>裙装</li>
-                            <li>内衣</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">下装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">上装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">裙装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">内衣：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+<div class="cat-list__box">
+    {foreach $arr as $value}
+    <div class="cat-box">
+        <div class="title">
+            <i class="iconfont icon-skirt ce"></i> {$value.name}
+        </div>
+        <ul class="cat-list clearfix">
+            {foreach $value.zi as $val}
+            <li>{$val.name}</li>
+            {/foreach}
+        </ul>
+        <div class="cat-list__deploy">
+            <div class="deploy-box">
+                {foreach $value.zi as $val}
+
+                <div class="genre-box clearfix">
+                    <span class="title">{$val.name}</span>
+                    {foreach $val.zi as $v}
+                    <div class="genre-list">
+                        <a href="">{$v.name}</a>
                     </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-fushi ce"></i> 男装
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>下装</li>
-                            <li>上装</li>
-                            <li>套装</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">下装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">上装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">套装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-bao ce"></i> 包包
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>女士包包</li>
-                            <li>男士包包</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">女士包包：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男士包包：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-kid ce"></i> 童装
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>女童</li>
-                            <li>男童</li>
-                            <li>男女童鞋</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">女童：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男童：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男女童鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-shoes ce"></i> 鞋靴
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>男鞋</li>
-                            <li>女鞋</li>
-                            <li>儿童鞋</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">男鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">女鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">儿童鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {/foreach}
                 </div>
+                {/foreach}
+
+            </div>
+        </div>
+    </div>
+    {/foreach}
+</div>
+
+
             </div>
             <ul class="nva-list">
                 <a href="index.html"><li class="active">首页</li></a>
@@ -1103,13 +915,11 @@
     $("#tc").click(function(event) {
         /* Act on the event */
         if (confirm("确定退出当前用户?")) {
-            $.post("{:url('index/tc')}", function(data) {
+            $.post("{:url('login/tc')}", function(data) {
             /*optional stuff to do after success */
             alert("已退出当前用户");
             location="{:url('index/index')}";
             });
-        }else{
-            return
         }
 
     });

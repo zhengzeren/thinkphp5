@@ -1,61 +1,55 @@
 <?php
     namespace app\index\controller;
     use think\Controller;
+    use think\Session;
     class Index extends Controller
     {
-    public function index(){
-            return view();
+        public function index(){
+            $arr=db('type')->where('pid',0)->select();
+              // dump($arr);
+              // echo "<hr>";
+             foreach ($arr as $k => $v) {
+             $arr[$k]['zi']=db('type')->where('pid',$v['id'])->select();
+              // dump($arr);
+              //       die();
+       }
+       // dump($arr);
+       foreach ($arr as $k=> $v) {
+                   foreach ($arr[$k]['zi'] as $key => $value) {
+                       $arr[$k]['zi'][$key]['zi']=db('type')->where('pid',$value['id'])->select();
+                   }
+               }
+               echo "<hr>";
+                // dump($arr);
+               $this->assign('arr',$arr);
+               $phone=session('phone');
+                  $this->assign('phone',$phone);
+               // if (session('phone','index')!=null) {
+               //    $phone=session('phone','index');
+               //    $this->assign('phone',$phone);
+               // }
+               return $this->fetch();
+            // return view('',['arr'=>$arr]);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public function panduan(){
-        echo(Session::get('id','index'));
-    }
-    public function aa(Request $request){
-        $id=$request->post('id');
-        // echo $id;
-         $list = Db::table('vip')
-        ->find($id);
-        // dump($list);
-        if ($list['username']==null) {
-            echo $list['phone'];
-        }else{
-            echo $list['username'];
-        }
-    }
-    public function banner(Request $request){
-
-    }
-    public function tc(){
-        Session::clear('index');
-    }
-    public function setting(){
-        Session::clear('paypwd');
-        return $this->fetch();
-    }
     }
  ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

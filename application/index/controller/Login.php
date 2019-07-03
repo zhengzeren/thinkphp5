@@ -48,6 +48,7 @@ class login extends Controller{
                 }else{
                     //账号启用将id存入session
                     Session::set('id',$list['id'],'index');
+                    Session::set('phone',$list['phone']);
                     echo $list['phone'];
                 }
             }else{
@@ -55,6 +56,10 @@ class login extends Controller{
                 echo 1;
             }
         }
+    }
+    public function tc(){
+         Session::clear();
+         return 1;
     }
     public function add(Request $request){
         $data = $request->post('formdata');
