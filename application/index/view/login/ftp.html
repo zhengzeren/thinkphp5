@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <style>
+        #dingwei{
+            position:relative;
+            margin-top:0px;
+            /*position:relative;*/
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/index/css/iconfont.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/global.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/bootstrap.min.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="__STATIC__/index/css/login.css">
+
+    <title>U袋网 - 忘记密码</title>
+</head>
+<body>
+    <div class="public-head-layout container">
+        <a class="logo" href="{:url('index/index')}"><img src="__STATIC__/index/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+    </div>
+    <div style="background:url(__STATIC__/index/images/login_bg.jpg) no-repeat center center; ">
+        <div class="login-layout container">
+            <div class="form-box login" id="register">
+                <div class="tabs-nav">
+                    <h2>忘记密码<a href="{:url('login/login')}" class="pull-right fz16" id="reglogin">返回登录</a></h2>
+                </div>
+                <div class="tabs_container">
+                    <form class="tabs_form" action="javascript:;" method="post" id="register_form">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span  aria-hidden="true">手机号:</span>
+                                </div>
+                                <input class="form-control phone" name="phone" id="register_phone" required placeholder="手机号" maxlength="11" autocomplete="off" type="text" required pattern="^1[3-9]{1}[0-9]{9}$">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" name="code" id="register_sms" placeholder="输入验证码" type="text" required>
+                                <span class="input-group-btn">
+                                    <div class="btn btn-primary getsms" id="yanzheng">发送短信验证码</div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span  aria-hidden="true">新密码:</span>
+                                </div>
+                                <input  class="form-control password" name="pass" id="login_pwd" placeholder="请输入密码" autocomplete="off" type="password" required>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <span  aria-hidden="true">确认密码</span>
+                                </div>
+                                <input  class="form-control password" name="password" id="login" placeholder="请输入密码" autocomplete="off" type="password" required>
+
+                            </div>
+                        </div>
+                        <div class="checkbox">
+                        </div>
+                        <!-- 错误信息 -->
+                        <div class="form-group">
+                            <div class="error_msg" id="login_error">
+                                <!-- 错误信息 范例html
+                                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>密码错误</strong> 请重新输入密码
+                                </div>
+                                 -->
+                            </div>
+                        </div>
+                        <input class="btn btn-large btn-primary btn-lg btn-block submit" id="login_submit" type="submit" value="确认修改"><br>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <script src="__STATIC__/index/js/jquery-1.8.3.min.js"></script>
+            <script>
+                $("#register").show();
+                $("#yanzheng").click(function(event) {
+                    /* Act on the event */
+                    var phone= $("#register_phone").val();
+                    if (phone){
+                        $.post("{:url('login/ftpyanzheng')}",{phone:phone},function(data) {
+                            /*optional stuff to do after success */
+                            // alert(data);
+                            if (data==1){
+                                alert("该手机号尚未注册");
+                            }else if(data==3){
+                                alert("验证码发送失败请点击重试");
+                            }else{
+                                alert("验证码已发送");
+                            }
+                        });
+                    }else{
+                        alert("请先输入你的手机号");
+                    }
+                });
+                $("#register_form").submit(function(event) {
+                    /* Act on the event */
+                    var pass=$('#login_pwd').val();
+                    var password=$('#login').val();
+                    if (pass==password) {
+                        var formdata =$("#register_form").serialize();
+                        // alert(formdata);
+                        $.post("{:url('login/editpass')}", {formdata:formdata}, function(data) {
+                            /*optional stuff to do after success */
+                            if (data==2){
+                                alert("该手机号已被注册");
+                            }else if(data==0){
+                                alert("密码修改失败")
+                            }else if(data==1){
+                                alert("密码修改成功");
+                                location.href="{:url('login/login')}";
+                            }else if(data==3){
+                                $.post("{:url('login/qingchu')}", function(data) {
+                                    alert("验证码错误请点击从新发送");
+                                });
+                            }
+                        });
+                    }else{
+                        alert("两次密码不一样");
+                    }
+                    return false;
+                });
+            </script>
+        </div>
+    </div>
+    <div class="footer-login container clearfix" id="dingwei">
+        <ul class="links">
+            <a href=""><li>网店代销</li></a>
+            <a href=""><li>U袋学堂</li></a>
+            <a href=""><li>联系我们</li></a>
+            <a href=""><li>企业简介</li></a>
+            <a href=""><li>新手上路</li></a>
+        </ul>
+        <!-- 版权 -->
+        <p class="copyright">
+            © 2005-2017 U袋网 版权所有，并保留所有权利<br>
+            ICP备案证书号：闽ICP备16015525号-2&nbsp;&nbsp;&nbsp;&nbsp;福建省宁德市福鼎市南下村小区（锦昌阁）1栋1梯602室&nbsp;&nbsp;&nbsp;&nbsp;Tel: 18650406668&nbsp;&nbsp;&nbsp;&nbsp;E-mail: 18650406668@qq.com
+        </p>
+    </div>
+</body>
+</html>
