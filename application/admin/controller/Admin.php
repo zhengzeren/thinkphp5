@@ -13,7 +13,7 @@
         // }
 
         public function index(){
-            $list=AdminModel::where('state'>=0)->order('id desc')->paginate(2);
+            $list=AdminModel::where('state'>=0)->order('id desc')->paginate(4);
             $this->assign('list',$list);
             return $this->fetch();
         }

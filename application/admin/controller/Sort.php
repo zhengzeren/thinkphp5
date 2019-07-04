@@ -116,5 +116,21 @@
                 return 1;
             }
         }
+
+        public function ss(){
+          $name=input('post.name');
+          //dump($name);
+          $list3=TypeModel::where('name','like',"%{$name}%")->value('id');
+          dump($list3);
+          die();
+          $list=TypeModel::where('name','like',"%{$name}%")->where()->order('id desc')->paginate(1,false,['query'=>request()->param()]);
+          // $list=AdminModel::where('state'>=0)->order('id desc')->paginate(2);
+          // $this->assign('list',$list);
+          $list1=TypeModel::field('pid')->select();
+            foreach ($list1 as $v) {
+                $newarr[]=$v['pid'];
+            }
+          return view('index',['list'=>$list,'newarr'=>$newarr]);
+        }
     }
  ?>
