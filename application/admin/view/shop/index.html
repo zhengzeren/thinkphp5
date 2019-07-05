@@ -36,7 +36,7 @@
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()">
                                 <i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','{:url('admin/shop/shopadd')}',800,600)">
+                            <button class="layui-btn" onclick="xadmin.open('添加商品','{:url('admin/shop/shopadd')}',800,500)">
                                 <i class="layui-icon"></i>添加</button>
                             </div>
                         <div class="layui-card-body ">
@@ -81,7 +81,7 @@
                                             </a>
                                         </td>
                                         <td style="text-align:center;">
-                                            {$shoplist.yuanjia}/{$shoplist.xianjia}
+                                            ￥{$shoplist.yuanjia}/￥{$shoplist.xianjia}
                                         </td>
                                         <td style="text-align:center;">
                                             {$shoplist.nums}

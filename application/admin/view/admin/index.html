@@ -36,7 +36,7 @@
                         </div>
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','{:url('admin/admin/adminadd')}',600,400)"><i class="layui-icon"></i>添加</button>
+                            <button class="layui-btn" onclick="xadmin.open('添加用户','{:url('admin/admin/adminadd')}',600,300)"><i class="layui-icon"></i>添加</button>
                         </div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form">
@@ -182,7 +182,7 @@
           $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
           layer.msg('已启用!',{icon: 5,time:1000});
           // 可以对父窗口进行刷新
-          //xadmin.father_reload('tr');
+          //xadmin.father_reload();
           }
         });
       }
@@ -216,7 +216,7 @@
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
             // 可以对父窗口进行刷新
-            xadmin.father_reload();
+            //xadmin.father_reload();
         });
       }
     </script>

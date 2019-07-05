@@ -39,11 +39,26 @@
         }
 
         public function shopadd(){
-            return view();
+            $list1=db('type')->select();
+            // dump($list1);
+            $arr=[];
+            for ($i=0; $i <count($list1) ; $i++) { 
+                //判断Path以','(逗号)分隔有几位 substr_count()
+                if (substr_count($list1[$i]['path'],',')>2) {
+                    $arr[$i]['name']=$list1[$i]['name'];
+                    $arr[$i]['id']=$list1[$i]['id'];
+                }
+            }
+            //dump($arr);
+            return view('',['arr'=>$arr]);
         }
         //brief introduction 简介
         public function bi(){
-        	return view();
+            $id=input('get.id');
+            //dump($id);
+            $list = ShopModel::where('id',$id)->find();
+            $desc=$list['desc'];
+        	return view('',['desc'=>$desc]);
         }
         //Picture management 图片管理
         public function pm(){

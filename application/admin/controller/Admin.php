@@ -78,7 +78,6 @@
               return "新增成功";
             }else{
               return "新增失败";
-
             }
         }
         public function update(){
