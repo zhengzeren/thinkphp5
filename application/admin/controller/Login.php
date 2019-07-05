@@ -22,11 +22,13 @@ class Login extends Controller
      *
      * @return \think\Response
      */
-    public function dologin()
-    {
+    public function dologin(){
         $arr=input('get.');
         $admin=db('admin')->where('adminname',$arr['name'])->find();
         // return $admin;
+        if($admin['state']==0){
+            return json(['pass'=>'0','info'=>"账号禁止登录"]);
+        }else{
         if ($admin==null) {
             return json(['pass'=>'0','info'=>"账号不存在"]);
         }
@@ -35,6 +37,7 @@ class Login extends Controller
         }else{
             session('admin',$admin);
             return json(['pass'=>'1','info'=>"登录成功"]);
+        }
         }
     }
 
@@ -47,7 +50,7 @@ class Login extends Controller
     public function loginout()
     {
         session(null,'think');
-        $this->redirect('/admin/login/index');
+        $this->redirect('login/index');
     }
 
     /**

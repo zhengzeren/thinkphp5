@@ -66,8 +66,33 @@
                                       <td>{$admin.adminname}</td>
                                       <td>{$admin.phone}</td>
                                       <td>{$admin.email}</td>
+                                      {if condition="$admin.work == 1"}
                                       <td>
-                                        {$admin.work==1?'超级管理员':'普通管理员'}
+                                        超级管理员
+                                      </td>
+                                      <td>{$admin.create_time}</td>
+                                      <td>{$admin.update_time}</td>
+                                      <td class="td-status">
+                                          <span class="layui-btn layui-btn-normal layui-btn-mini">
+                                            {$admin.state == 1?'已启用':'已禁用'}
+                                          </span>
+                                      </td>
+                                          {if condition="$Think.session.admin.adminname == $admin.adminname"}
+                                            <td>
+                                              <a title="编辑"  onclick="xadmin.open('编辑','{:url('admin/admin/update','id='.$admin.id)}')" href="javascript:;">
+                                                <i class="layui-icon">&#xe642;</i>
+                                              </a>
+                                            </td>
+                                          {else/}
+                                           <td>
+                                              <span class="layui-btn layui-btn-normal layui-btn-mini">
+                                                禁止操作
+                                              </span>
+                                          </td>
+                                          {/if}
+                                      {else/}
+                                      <td>
+                                        普通管理员
                                       </td>
                                       <td>{$admin.create_time}</td>
                                       <td>{$admin.update_time}</td>
@@ -78,7 +103,7 @@
                                         <td class="td-manage">
                                           <a onclick="member_stop(this,'{$admin.id}','{$admin.state}')" href="javascript:;"  title="禁用">
                                             <i class="layui-icon">&#xe601;</i>
-                                        </a>
+                                          </a>
                                         {else/}
                                             <td class="td-status">
                                             <span class="layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled">已停用</span>
@@ -88,14 +113,15 @@
                                               <i class="layui-icon">&#xe62f;</i>
                                             </a>
                                         {/if}
-                                        <a title="编辑"  onclick="xadmin.open('编辑','{:url('admin/admin/update','id='.$admin.id)}')" href="javascript:;">
+                                        <!-- <a title="编辑"  onclick="xadmin.open('编辑','{:url('admin/admin/update','id='.$admin.id)}')" href="javascript:;">
                                           <i class="layui-icon">&#xe642;</i>
-                                        </a>
+                                        </a> -->
                                         <a title="删除" onclick="member_del(this,'{$admin.id}')" href="javascript:;">
                                           <i class="layui-icon">&#xe640;</i>
                                         </a>
                                       </td>
                                     </tr>
+                                  {/if}
                                   {/volist}
                               </tbody>
                             </table>
