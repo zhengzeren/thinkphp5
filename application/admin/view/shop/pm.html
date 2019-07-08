@@ -35,17 +35,21 @@
                                   <th style="text-align:center;">操作</th>
                               </thead>
                               <tbody>
+                                {volist name="arr" id="img"}
                                 <tr>
                                   <td>
                                     <input type="checkbox" name=""  lay-skin="primary">
                                   </td>
-                                  <td style="text-align:center;">图片1</td>
+                                  <td style="text-align:center;">
+                                    <img src="/ueditor/php/upload/image/{$list.create_time}/{$img}" alt="">
+                                  </td>
                                   <td class="td-manage" style="text-align:center;">
                                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                                       <i class="layui-icon">&#xe640;</i>
                                     </a>
                                   </td>
                                 </tr>
+                                {/volist}
                               </tbody>
                             </table>
                         </div>
