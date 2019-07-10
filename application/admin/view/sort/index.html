@@ -72,6 +72,13 @@
                     </thead>
                     <tbody class="x-cate">
                       <!-- {foreach $arr as $type} -->
+                      {if $list == null }
+                      <tr cate-id='' fid='' >
+                          <td colspan="7" style="text-align:center;">
+                            没有数据
+                          </td>
+                      </tr>
+                      {else/}
                       {volist name='list' id='type'}
                         <tr cate-id='{$type.id}' fid='{$type.pid}' >
                           <td>
@@ -107,6 +114,7 @@
                           </td>
                         </tr>
                       {/volist}
+                      
                     </tbody>
                   </table>
                 </div>
@@ -114,9 +122,11 @@
                   <div class="page">
                     <div>
                       {$list->render()}
+
                     </div>
                   </div>
                 </div>
+                {/if}
               </div>
             </div>
           </div>

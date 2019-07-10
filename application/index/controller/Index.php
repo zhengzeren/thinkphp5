@@ -5,33 +5,36 @@
     class Index extends Controller
     {
         public function index(){
+            //查询根分类
             $arr=db('type')->where('pid',0)->select();
-              // dump($arr);
-              // echo "<hr>";
-             foreach ($arr as $k => $v) {
-             $arr[$k]['zi']=db('type')->where('pid',$v['id'])->select();
-              // dump($arr);
-              //       die();
-       }
-       // dump($arr);
-       foreach ($arr as $k=> $v) {
-                   foreach ($arr[$k]['zi'] as $key => $value) {
-                       $arr[$k]['zi'][$key]['zi']=db('type')->where('pid',$value['id'])->select();
-                   }
+            // dump($arr);
+            //查询二级分类
+            foreach ($arr as $k => $v) {
+            $arr[$k]['zi']=db('type')->where('pid',$v['id'])->select();
+            // dump($arr);
+            }
+            //查询三级分类
+            foreach ($arr as $k=> $v) {
+               foreach ($arr[$k]['zi'] as $key => $value) {
+                   $arr[$k]['zi'][$key]['zi']=db('type')->where('pid',$value['id'])->select();
                }
-               echo "<hr>";
-                // dump($arr);
-               $this->assign('arr',$arr);
-               $phone=session('phone');
-                  $this->assign('phone',$phone);
-               // if (session('phone','index')!=null) {
-               //    $phone=session('phone','index');
-               //    $this->assign('phone',$phone);
-               // }
-               return $this->fetch();
-            // return view('',['arr'=>$arr]);
-        }
+            }
+            //判断是否登录
+            $phone=session('phone');
+            $name=db('vip')->where('phone',$phone)->find();
+            if($name==null){
+              $username="默认名，请在个人中心设置！";
+            }else{
+              $username=$name['username'];
+            }
 
+            //轮播图
+            $images=db('banner')->where('state',1)->select();
+
+            //楼层内容 -- 沙发
+            $sofa=db('shop')->where('type',143)->where('state',1)->select();
+            return view('',['user'=>$phone,'username'=>$username,'arr'=>$arr,'images'=>$images,'sofa'=>$sofa]);
+        }
     }
  ?>
 

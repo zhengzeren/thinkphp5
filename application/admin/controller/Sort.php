@@ -5,13 +5,19 @@
     class Sort extends Base
     {
         public function index(){
-            $list=TypeModel::field(['id','name','pid','path','state','concat(path,id)'=>'paixu'])->order('paixu')->paginate(10);
-            $list1=TypeModel::field('pid')->select();
-            foreach ($list1 as $v) {
-                $newarr[]=$v['pid'];
+            $newarr=[];
+            $a=TypeModel::all();
+            if(empty($a)){
+                return view('',['list'=>null]);
+            }else{
+                $list=TypeModel::field(['id','name','pid','path','state','concat(path,id)'=>'paixu'])->order('paixu')->paginate(10);
+                $list1=TypeModel::field('pid')->select();
+                foreach ($list1 as $v) {
+                    $newarr[]=$v['pid'];
+                }
+                $this->assign(['list'=>$list,'newarr'=>$newarr]);
+                return $this->fetch();
             }
-            $this->assign(['list'=>$list,'newarr'=>$newarr]);
-            return $this->fetch();
         }
         // public function update(){
         //     $arr['id']=input('get.id');

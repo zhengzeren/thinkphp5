@@ -7,35 +7,39 @@
     {
         public function index(){
             $list=BannerModel::order('id desc')->paginate(5);
-            //dump($list);
-            return view('',['list'=>$list]);
+            // dump($list);
+            //$img=trim($list['picname'],',');
+            //以逗号拆分字符串
+            //$arr=explode(',',$img);
+            return view('index',['list'=>$list]);
         }
 
         public function stateupdate(){
-            $result = new ShopModel;
+            //dump(input('post.'));
+            $result = new BannerModel;
             $id = input('post.id');
             $state = input('post.state');
             if($state == 1){
                  $state = 0;
-                 $res = ShopModel::where('id',$id)->update(['state'=>$state]);
+                 $res = BannerModel::where('id',$id)->update(['state'=>$state]);
                  //dump($res);
-                 return "成功下架";
+                 return "已禁止显示";
              }else{
                  $state = 1;
-                 $res = ShopModel::where('id',$id)->update(['state'=>$state]);
+                 $res = BannerModel::where('id',$id)->update(['state'=>$state]);
                  //dump($res);
-                 return "上架成功";
+                 return "显示成功";
              }
         }
 
         public function del(){
             $id = input('post.id');
-            $user = ShopModel::get($id);
+            $user = BannerModel::get($id);
             if($user){
                 $user->delete();
-                return "删除成功";
+                return 1;
             }else{
-                return "删除的商品不存在";
+                return 0;
             }
         }
 
@@ -45,24 +49,19 @@
         }
 
         public function insert(){
-            $shop = new ShopModel;
-            $shop->goods = input('post.goods');
-            $shop->type = input('post.type');
-            $shop->changjia = input('post.type');
-            $shop->desc = input('post.desc');
-            $shop->nums = input('post.nums');
-            $shop->yuanjia = input('post.yuanjia');
+            $banner = new BannerModel;
             $img=input('post.img');
             preg_match_all("/title=\"(\d+\.\w+)\"/",$img,$arr);
             $arr1='';
             for ($i=0; $i < count($arr[1]); $i++) { 
                 $arr1.=$arr[1][$i].',';
             }
-            $shop->img = $arr1;
-            if ($shop->save()) {
+            $banner->picname = $arr1;
+            $banner->descr = input('post.descr');
+            if ($banner->save()) {
             return '新增成功';
             } else {
-            return $shop->getError();
+            return $banner->getError();
             }
 
         }
@@ -71,9 +70,9 @@
         public function bi(){
             $id=input('get.id');
             //dump($id);
-            $list = ShopModel::where('id',$id)->find();
-            $desc=$list['desc'];
-          return view('',['desc'=>$desc]);
+            $list = BannerModel::where('id',$id)->find();
+            $descr=$list['descr'];
+          return view('',['descr'=>$descr]);
         }
         //Picture management 图片管理
         public function pm(){

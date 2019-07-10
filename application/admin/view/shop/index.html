@@ -117,12 +117,12 @@
                             <div class="page">
                                 <div>
                                     {$list->render()}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </body>
     <script>layui.use(['laydate', 'form'],
         function() {
@@ -145,14 +145,17 @@
                 //console.log(id);
                 //发异步把用户状态进行更改
                 if($(obj).attr('title')=='下架'){
-                $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state},);
-                $(obj).attr('title','上架')
-                $(obj).attr('onclick','shop_start(this,'+id+','+state+')');
-                $(obj).find('i').html('&#xe62f;');
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已下架');
-                layer.msg('已下架!',{icon: 6,time:1000});
-                // 可以对父窗口进行刷新
-                //xadmin.father_reload('tr');
+                $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state},function(data){
+                    if(data>0){
+                       $(obj).attr('title','上架')
+                       $(obj).attr('onclick','shop_start(this,'+id+','+state+')');
+                       $(obj).find('i').html('&#xe62f;');
+                       $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已下架');
+                       layer.msg('已下架!',{icon: 6,time:1000});
+                       // 可以对父窗口进行刷新
+                       //xadmin.father_reload('tr'); 
+                    }
+                });
               }
           });
       }
@@ -160,17 +163,20 @@
        function shop_start(obj ,id,state){
         layer.confirm('确认上架吗？',function(index){
           if($(obj).attr('title')=='上架'){
-          $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state});
-          $(obj).attr('title','下架')
-          $(obj).attr('onclick','shop_stop(this,'+id+','+state+')');
-          $(obj).find('i').html('&#xe601;');
-          $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('上架中');
-          layer.msg('已上架!',{icon: 6,time:1000});
-          // 可以对父窗口进行刷新
-          //xadmin.father_reload('tr');
-          }
-        });
-      }
+          $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state},function(data){
+            if (data>0) {
+                $(obj).attr('title','下架')
+                $(obj).attr('onclick','shop_stop(this,'+id+','+state+')');
+                $(obj).find('i').html('&#xe601;');
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('上架中');
+                layer.msg('已上架!',{icon: 6,time:1000});
+                // 可以对父窗口进行刷新
+                //xadmin.father_reload('tr');
+            }
+          });
+        }
+      });
+    }
 
         /*商品-删除*/
       function shop_del(obj,id){

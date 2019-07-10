@@ -5,9 +5,9 @@ use think\Controller;
 use think\Db;
 
 use think\Session;
-class login extends Controller{
+class Login extends Controller{
     //跳转登录界面
-    public function login(){
+    public function index(){
         Session::clear('index');
         // Session::clear('yanzheng');
         return $this->fetch();
@@ -15,7 +15,7 @@ class login extends Controller{
     }
     //跳转注册界面
     public function register(){
-        // Session::clear('yanzheng');
+        //Session::clear('yanzheng');
         Session::clear('index');
         return $this->fetch();
     }

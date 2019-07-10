@@ -18,12 +18,12 @@
                  $state = 0;
                  $res = ShopModel::where('id',$id)->update(['state'=>$state]);
                  //dump($res);
-                 return "成功下架";
+                 return $res;
              }else{
                  $state = 1;
                  $res = ShopModel::where('id',$id)->update(['state'=>$state]);
                  //dump($res);
-                 return "上架成功";
+                 return $res;
              }
         }
 
