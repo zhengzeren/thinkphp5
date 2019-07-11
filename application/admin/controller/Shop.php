@@ -17,7 +17,6 @@
             if($state == 1){
                  $state = 0;
                  $res = ShopModel::where('id',$id)->update(['state'=>$state]);
-                 //dump($res);
                  return $res;
              }else{
                  $state = 1;

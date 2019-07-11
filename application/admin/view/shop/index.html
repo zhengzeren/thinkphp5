@@ -148,7 +148,7 @@
                 $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state},function(data){
                     if(data>0){
                        $(obj).attr('title','上架')
-                       $(obj).attr('onclick','shop_start(this,'+id+','+state+')');
+                       $(obj).attr('onclick','shop_start(this,'+id+','+0+')');
                        $(obj).find('i').html('&#xe62f;');
                        $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已下架');
                        layer.msg('已下架!',{icon: 6,time:1000});
@@ -166,7 +166,7 @@
           $.post("{:url('admin/shop/stateupdate')}",{'id':id,'state':state},function(data){
             if (data>0) {
                 $(obj).attr('title','下架')
-                $(obj).attr('onclick','shop_stop(this,'+id+','+state+')');
+                $(obj).attr('onclick','shop_stop(this,'+id+','+1+')');
                 $(obj).find('i').html('&#xe601;');
                 $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('上架中');
                 layer.msg('已上架!',{icon: 6,time:1000});

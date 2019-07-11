@@ -2,7 +2,7 @@
 <html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="__STATIC__/index/favicon.ico">
+    <link href="__STATIC__/index/touch-icon-ipad.png" rel="icon" type="image/x-icon">
     <link rel="stylesheet" href="__STATIC__/index/css/iconfont.css">
     <link rel="stylesheet" href="__STATIC__/index/css/global.css">
     <link rel="stylesheet" href="__STATIC__/index/css/bootstrap.min.css">
@@ -14,23 +14,28 @@
     <script src="__STATIC__/index/js/swiper.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/global.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
-    <title>U袋网</title>
+    <title>世界优品</title>
 </head>
 <body>
     <!-- 顶部tab -->
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
-                <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-                <a href="agent_level.html">网店代销</a>
-                <a href="temp_article/udai_article4.html">帮助中心</a>
+                <div class="pull-left">嗨，欢迎来到<span class="cr">全球优品</span></div>
             </div>
             <div class="pull-right">
-                <a href="login.html"><span class="cr">登录</span></a>
-                <a href="login.html?p=register">注册</a>
-                <a href="udai_welcome.html">我的U袋</a>
+                {if condition="$user == null"}
+                <a href="{:url('index/login/index')}">
+                    <span class="cr">登录</span>
+                </a>
+                <a href="{:url('index/login/register')}">注册</a>
+                {else/}
+                <a href="udai_welcome.html"><img src="__STATIC__/index/images/icons/VIP.png" alt="" style="width:20px"> {$username}</a>
+                <a href="javascript:;" id="tc">
+                    <span id="outlogin">退出登录</span>
+                </a>
                 <a href="udai_order.html">我的订单</a>
-                <a href="udai_integral.html">积分平台</a>
+                {/if}
             </div>
         </div>
     </div>
@@ -62,17 +67,25 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {foreach $arr as $value}
+                            {php}
+                                $img=explode(',',trim($value['img'],','));
+                                var_dump($img);
+                                $time=date('Ymd',$value['create_time']);
+                            {/php}
                             <tr>
                                 <th scope="row">
                                     <label class="checked-label"><input type="checkbox"><i></i>
-                                        <div class="img"><img src="__STATIC__/index/images/temp/M-003.jpg" alt="" class="cover"></div>
+                                        <div class="img"><img src="__STATIC__/upload/image/{$time}/{$img[0]}" alt="" class="cover"></div>
                                     </label>
                                 </th>
                                 <td>
-                                    <div class="name ep3">锦瑟 原创传统日常汉服男绣花交领衣裳cp情侣装春夏款</div>
+                                    <div class="name ep3">
+                                        {$value.goods}
+                                    </div>
                                     <div class="type c9">颜色分类：深棕色  尺码：均码</div>
                                 </td>
-                                <td>¥20.0</td>
+                                <td>{$value.yuanjia}</td>
                                 <td>
                                     <div class="cart-num__box">
                                         <input type="button" class="sub" value="-">
@@ -83,48 +96,7 @@
                                 <td>¥20.0</td>
                                 <td><a href="">删除</a></td>
                             </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label class="checked-label"><input type="checkbox"><i></i>
-                                        <div class="img"><img src="__STATIC__/index/images/temp/S-005.jpg" alt="" class="cover"></div>
-                                    </label>
-                                </th>
-                                <td>
-                                    <div class="name ep3">霜天月明 原创传统日常汉服男绣花交领衣裳cp春装单品</div>
-                                    <div class="type c9">颜色分类：深棕色  尺码：均码</div>
-                                </td>
-                                <td>¥20.0</td>
-                                <td>
-                                    <div class="cart-num__box">
-                                        <input type="button" class="sub" value="-">
-                                        <input type="text" class="val" value="1" maxlength="2">
-                                        <input type="button" class="add" value="+">
-                                    </div>
-                                </td>
-                                <td>¥20.0</td>
-                                <td><a href="">删除</a></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label class="checked-label"><input type="checkbox"><i></i>
-                                        <div class="img"><img src="__STATIC__/index/images/temp/M-007.jpg" alt="" class="cover"></div>
-                                    </label>
-                                </th>
-                                <td>
-                                    <div class="name ep3">陇上乐 原创传统日常汉服男绣花单大氅大袖衫cp情侣春秋</div>
-                                    <div class="type c9">颜色分类：深棕色  尺码：均码</div>
-                                </td>
-                                <td>¥20.0</td>
-                                <td>
-                                    <div class="cart-num__box">
-                                        <input type="button" class="sub" value="-">
-                                        <input type="text" class="val" value="1" maxlength="2">
-                                        <input type="button" class="add" value="+">
-                                    </div>
-                                </td>
-                                <td>¥20.0</td>
-                                <td><a href="">删除</a></td>
-                            </tr>
+                            {/foreach}
                         </tbody>
                     </table>
                     <div class="user-form-group tags-box shopcart-submit pull-right">
