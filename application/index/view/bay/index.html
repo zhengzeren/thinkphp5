@@ -62,41 +62,43 @@
                                 <th width="300">商品信息</th>
                                 <th width="150">单价</th>
                                 <th width="200">数量</th>
-                                <th width="200">现价</th>
+                                <th width="200">小计</th>
                                 <th width="80">操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {foreach $arr as $value}
+                            {volist name="list" id="shop"}
                             {php}
-                                $img=explode(',',trim($value['img'],','));
-                                var_dump($img);
-                                $time=date('Ymd',$value['create_time']);
+                                $img=explode(',',trim($shop['img'],','));
+                                $time=date('Ymd',$shop['create_time']);
                             {/php}
                             <tr>
                                 <th scope="row">
-                                    <label class="checked-label"><input type="checkbox"><i></i>
+                                    <label class="checked-label">
+                                    	<input type="checkbox"><i></i>
                                         <div class="img"><img src="__STATIC__/upload/image/{$time}/{$img[0]}" alt="" class="cover"></div>
                                     </label>
                                 </th>
                                 <td>
                                     <div class="name ep3">
-                                        {$value.goods}
+                                        {$shop.goods}
                                     </div>
                                     <div class="type c9">颜色分类：深棕色  尺码：均码</div>
                                 </td>
-                                <td>{$value.yuanjia}</td>
+                                <td style="line-height:130px">￥	<span class="dj">{$shop.yuanjia}</span></td>
                                 <td>
-                                    <div class="cart-num__box">
+                                    <div class="cart-num__box" style="margin-top:45px;">
                                         <input type="button" class="sub" value="-">
-                                        <input type="text" class="val" value="1" maxlength="2">
+                                        <input type="text" class="val" value="{$shop.num}" maxlength="2" id="{$shop.id}">
                                         <input type="button" class="add" value="+">
                                     </div>
                                 </td>
-                                <td>¥20.0</td>
-                                <td><a href="">删除</a></td>
+                                <td style="line-height:130px">￥<span class="dgzj"> </span></td>
+                                <td style="line-height:130px">
+                                	<a href="javascript:;" class="del" id="{$shop.id}">删除</a>
+                                </td>
                             </tr>
-                            {/foreach}
+                            {/volist}
                         </tbody>
                     </table>
                     <div class="user-form-group tags-box shopcart-submit pull-right">
@@ -104,11 +106,11 @@
                     </div>
                     <div class="checkbox shopcart-total">
                         <label><input type="checkbox" class="check-all"><i></i> 全选</label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="">删除</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="delall">删除</a>
                         <div class="pull-right">
-                            已选商品 <span>2</span> 件
+                            已选商品 <span class="totalNum">0</span> 件
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计（不含运费）
-                            <b class="cr">¥<span class="fz24">40.00</span></b>
+                            <b class="cr">¥<span class="fz24">0</span>.00</b>
                         </div>
                     </div>
                     <script>
@@ -119,6 +121,10 @@
                             $check_all.on('change', function() {
                                 $check_all.prop('checked', $(this).prop('checked'));
                                 $item_checkboxs.prop('checked', $(this).prop('checked'));
+                                //价格总计
+                                total()
+                                //商品总数
+                                zs()
                             });
                             // 点击选择
                             $item_checkboxs.on('change', function() {
@@ -127,16 +133,109 @@
                                     if (!$(this).prop('checked')) { flag = false }
                                 });
                                 $check_all.prop('checked', flag);
+                                total()
+                                zs()
+
                             });
+
+                            //自定义商品总数量方法
+                            function zs(){
+                            	totalNum=0;
+                            	for (var i = 0; i < $item_checkboxs.length; i++) {
+                                	if ($($item_checkboxs[i]).prop('checked')) {
+                                		totalNum+=parseInt($(".val").eq(i).val());
+                                		//alert($($item_checkboxs[i]).parents('th').next().next().next().next().children('span').html());
+                                	}
+	                            	$(".totalNum").text(totalNum);
+                            	}
+	                            // for (var i = 0; i < $(".val").length; i++) {
+	                            // 	totalNum+=parseInt($(".val").eq(i).val());	
+	                            // }
+	                            // $(".totalNum").text(totalNum);
+                            }
+
+                            //自定义总计方法
+                            function total(){
+                            	$total=0;
+                                for (var i = 0; i < $item_checkboxs.length; i++) {
+                                	if ($($item_checkboxs[i]).prop('checked')) {
+                                		$total+=parseInt($($item_checkboxs[i]).parents('th').next().next().next().next().children('span').html());
+                                		//alert($($item_checkboxs[i]).parents('th').next().next().next().next().children('span').html());
+                                	}
+                             	
+                            	}
+                            	$(".fz24").text($total);
+                            }
+
+                            //自定义小计方法
+                            function xj(){
+                            	goods_price=0;
+                            	for (var i = 0; i < $(".val").length; i++) {
+                            		goods_price=parseInt($(".val").eq(i).val())*parseInt($(".dj").eq(i).html());
+                            		$(".dgzj").eq(i).text(goods_price);
+                            	}
+                            }
+
+                            //商品小计
+                            xj()
+
+                            //自定义删除
+                           	$('.del').on('click',function(){
+                           		//$(this).parents('tr').remove();
+                           		var that=$(this);
+                           		if (confirm('确定要删除吗？')) {
+                           			var id=$(this).attr('id');
+                           			
+                           			$.post("{:url('bay/del')}",{id:id},function(data){
+	                           			if(data>0){
+	                           				 that.parents('tr').remove();
+	                           			}
+                           			})
+                           		}
+                           	})
+
                             // 个数限制输入数字
                             $('input.val').onlyReg({reg: /[^0-9.]/g});
+
                             // 加减个数
                             $('.cart-num__box').on('click', '.sub,.add', function() {
                                 var value = parseInt($(this).siblings('.val').val());
                                 if ($(this).hasClass('add')) {
                                     $(this).siblings('.val').val(Math.min((value += 1),99));
+                                    //调用商品总数量加
+        							zs()
+        							//调用商品小计方法
+        							xj()
+        							//获取购物车ID
+        							var id=$(this).prev().attr('id');
+        							//获取小计
+        							var total=$(this).parents('td').next('td').children().html();
+        							//alert(total)
+        							//发送同步请求更改数据库数据
+        							$.post("{:url('bay/edit')}",{id:id,num:value,total:total},function(data){
+        								//判断返回数据
+        								if (data>0) {
+        									//调用总计方法
+        									total();
+        								}
+        							})
+        							
                                 } else {
                                     $(this).siblings('.val').val(Math.max((value -= 1),1));
+                                    //商品总数量减
+                                    // totalNum--
+                                    zs()
+        							xj()
+        							//获取购物车ID
+        							var id=$(this).next().attr('id');
+        							var total=$(this).parents('td').next('td').children().html();
+        							//alert(total)
+        							
+        							$.post("{:url('bay/edit')}",{id:id,num:value,total:total},function(data){
+        								if (data>0) {
+        									total()
+        								}
+        							})
                                 }
                             });
                         });

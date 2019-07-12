@@ -14,26 +14,36 @@
             }
 
             //遍历购物车表
-            $list=db('shopcart')->where('vip_phone',$phone)->select();
-            $listshop=db('shopcart')->field('shop_id')->where('vip_phone',$phone)->select();
-            dump($listshop);
-            foreach ($listshop as $v) {
-                $shop[]=$v["shop_id"];
-            }
-            $arr=db('shop')->where('id',"in",$shop)->select();
-            dump($arr);
-            return view('',['user'=>$phone,'username'=>$username,'arr'=>$arr]);
+            $list=db('shop')->alias('a')->join('shopcart s','s.shop_id=a.id')->where('s.vip_phone',$phone)->select();
+            // dump($list);
+            return view('',['user'=>$phone,'username'=>$username,'list'=>$list]);
         }
         public function add_car(){
+            //获取账号
             $phone=session('phone');
             $num=input('post.num');
             $id=input('post.id');
-            $arr=db('shop')->find($id);
-            $price=$arr['yuanjia'];
-            $total=$price*$num;
-            $res=db('shopcart')->insert(['vip_phone'=>$phone,'shop_id'=>$id,'num'=>$num,'total_prices'=>$total]);
+            //判断购物车表中是否新添加的商品
+            $list=db('shopcart')->where('shop_id',$id)->where('vip_phone',$phone)->find();
+            if($list['id']!==null){
+                //如果有就加上新添加的数量
+                $nums=$list['num']+$num;
+                $res=db('shopcart')->where('id',$list['id'])->update(["num"=>$nums]);
+                return $res;
+            }
+            //没有就新添加商品
+            $res=db('shopcart')->insert(['vip_phone'=>$phone,'shop_id'=>$id,'num'=>$num]);
             return $res;
         }
+        public function edit(){
+            $res=db('shopcart')->where('id',input('post.id'))->update(input('post.'));
+            var_dump($res);
+            //return $res;
+        }
 
+        public function del(){
+            $res=db('shopcart')->where('id',input('post.id'))->delete();
+            return $res;
+        }
     }
  ?>
