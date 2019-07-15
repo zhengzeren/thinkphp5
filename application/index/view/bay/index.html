@@ -13,6 +13,7 @@
     <script src="__STATIC__/index/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/swiper.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/global.js" charset="UTF-8"></script>
+    <script src="__STATIC__/admin/lib/layui/layui.all.js" charset="utf-8"></script>
     <script src="__STATIC__/index/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
     <title>世界优品</title>
 </head>
@@ -52,7 +53,7 @@
         <section class="user-center inner clearfix">
             <div class="user-content__box clearfix bgf">
                 <div class="title">购物车</div>
-                <form action="udai_shopcart_pay.html" class="shopcart-form__box">
+                <form action="{:url('bay/pay')}" class="shopcart-form__box" method='post'>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -75,8 +76,12 @@
                             <tr>
                                 <th scope="row">
                                     <label class="checked-label">
-                                    	<input type="checkbox"><i></i>
-                                        <div class="img"><img src="__STATIC__/upload/image/{$time}/{$img[0]}" alt="" class="cover"></div>
+                                        <!-- form表单传数量和商品ID -->
+                                       
+                                    	<input type="checkbox" name="cart[]" value='{$shop.id}+{$shop.num}'><i></i>
+                                        <div class="img">
+                                            <img src="__STATIC__/upload/image/{$time}/{$img[0]}" alt="" class="cover">
+                                        </div>
                                     </label>
                                 </th>
                                 <td>
@@ -106,7 +111,7 @@
                     </div>
                     <div class="checkbox shopcart-total">
                         <label><input type="checkbox" class="check-all"><i></i> 全选</label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="delall">删除</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="delall" onclick="delAll()">删除</a>
                         <div class="pull-right">
                             已选商品 <span class="totalNum">0</span> 件
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;合计（不含运费）
@@ -144,7 +149,6 @@
                             	for (var i = 0; i < $item_checkboxs.length; i++) {
                                 	if ($($item_checkboxs[i]).prop('checked')) {
                                 		totalNum+=parseInt($(".val").eq(i).val());
-                                		//alert($($item_checkboxs[i]).parents('th').next().next().next().next().children('span').html());
                                 	}
 	                            	$(".totalNum").text(totalNum);
                             	}
@@ -343,3 +347,26 @@
     </div>
 </body>
 </html>
+<script>
+    function delAll (argument) {
+      // var data = tableCheck.getData();
+      // console(data);
+      layer.confirm('确认要删除吗？',function(index){
+          //捉到所有被选中的，发异步进行删除
+          
+          // $id=$(".layui-form-checked").parents('td').next('td').html();
+          $num=$(".layui-form-checked").length;
+          $arr=[];
+          for (var i = 0; i<$num; i++) {
+            $id=$(".layui-form-checked").eq(i).parents('td').next('td').html();
+            $arr[i]=$id;
+          }
+          //console.log($arr);
+          $.post("{}",{id:$arr});
+          layer.msg('删除成功', {icon: 1}); 
+          $(".layui-form-checked").not('.header').parents('tr').remove();
+          // 可以对父窗口进行刷新
+          //xadmin.father_reload();
+      });
+    }
+</script> 

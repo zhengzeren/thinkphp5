@@ -45,5 +45,19 @@
             $res=db('shopcart')->where('id',input('post.id'))->delete();
             return $res;
         }
+
+        public function pay(){
+        	$phone=session('phone');
+        	$list=db('vip')->where('phone',$phone)->find();
+        	$id=$list['id'];
+            $array=input('post.');
+            for ($i=0; $i < count($array['cart']); $i++) { 
+            	$arr[$i]=explode('+',$array['cart'][$i]);
+            }
+            dump($arr);
+            $order_id=date("ymdHis").str_pad($id,6,"0",STR_PAD_LEFT);
+
+            //return view();
+        }
     }
  ?>
