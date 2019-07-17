@@ -92,7 +92,7 @@
 							<tbody>
 								{foreach $orders['sid'] as $k => $v}
 								{php}
-								    $time=date('Ymd',$orders['s_create_time'][$k]);
+								    $time=date('Ymd',$orders['s_img_time'][$k]);
 								{/php}
 								<tr>
 									<th scope="row"><a href="item_show.html"><div class="img" style="width:300px;"><img src="__STATIC__/upload/image/{$time}/{$orders.picname[$k]}" alt="" class="cover" style="width:100%;height:240px;"></div></a></th>

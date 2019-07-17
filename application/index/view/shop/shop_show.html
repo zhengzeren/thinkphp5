@@ -68,6 +68,7 @@
 		<section class="item-show__div item-show__head clearfix">
 			<div class="pull-left" style="width:1200px;height:580px;padding-top:20px;">
 				{volist name="shop" id="list"}
+				<form action="{:url('bay/pay')}" method='post'>
                     {php}
                         $img=explode(',',trim($list['img'],','));
                         $time=date('Ymd',$list['create_time']);
@@ -149,7 +150,8 @@
 							<div class="item-metatit">数量：</div>
 							<div class="amount-box">
 								<div class="amount-widget">
-									<input class="amount-input" value="1" maxlength="8" title="请输入购买量" type="text" disabled>
+									<input type="hidden" name="shopid" value="{$list.id}">
+									<input class="amount-input" name="num" value="1" maxlength="8" title="请输入购买量" type="text">
 									<div class="amount-btn">
 										<a class="amount-but add"></a>
 										<a class="amount-but sub"></a>
@@ -183,6 +185,8 @@
 												$('.amount-input').val(num - 1);
 											}
 										});
+
+										//加入购物车
 										$(".item-action__basket").click(function(){
 											var id={$list.id};
 											//alert(id);
@@ -193,18 +197,25 @@
 												}
 											})
 										});
+										  
 									});
 								</script>
 							</div>
 						</div>
 						<div class="item-action clearfix bgf5">
-							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">立即购买</a>
+							<!-- <a href="javascript:;" rel="nofollow" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息。" role="button" class="item-action__buy">
+								立即购买
+							</a> -->
+							<button type="submit" class="item-action__buy" title="点击此按钮，到下一步确认购买信息。">
+								立即购买
+							</button>
 							<a href="javascript:;" rel="nofollow" data-addfastbuy="true" role="button" class="item-action__basket">
 								<i class="iconfont icon-shopcart"></i> 加入购物车
 							</a>
 						</div>
 					</div>
 				</div>
+				</form>
 				{/volist}
 			</div>
 		</section>

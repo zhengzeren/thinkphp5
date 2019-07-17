@@ -5,18 +5,12 @@
     use think\Request;
     class Admin extends Base
     {
-        // public function index(){
-        //     $list=Db::table('admin')->order('id','desc')->paginate(2);
-        //     // dump($list);
-        //     $this->assign('list',$list);
-        //     return $this->fetch();
-        // }
-
         public function index(){
             $list=AdminModel::where('state'>=0)->order('id desc')->paginate(4);
             $this->assign('list',$list);
             return $this->fetch();
         }
+
         public function ss(){
           $name=input('post.adminname');
           //dump($name);
@@ -25,6 +19,7 @@
           // $this->assign('list',$list);
           return view('index',['list'=>$list]);
         }
+        
         public function stateupdate(){
             $result = new AdminModel;
             $id = input('post.id');

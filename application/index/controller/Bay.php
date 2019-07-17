@@ -46,6 +46,7 @@
             // dump($list);
             return view('',['user'=>$phone,'username'=>$username,'list'=>$list]);
         }
+
         public function add_car(){
             //获取账号
             $phone=session('phone');
@@ -66,6 +67,7 @@
             $res=db('shopcart')->insert(['vip_phone'=>$phone,'shop_id'=>$id,'num'=>$num,"total"=>$total]);
             return $res;
         }
+
         public function edit(){
             $res=db('shopcart')->where('id',input('post.id'))->update(input('post.'));
             var_dump($res);
@@ -86,67 +88,153 @@
             }else{
               $username=$name['username'];
             }
-            //
-        	$list=db('vip')->where('phone',$phone)->find();
-        	$id=$list['id'];
+
+            //获取购物车页面传过来的商品ID和购物车ID赋给array数组
             $array=input('post.');
+            if (count($array)>1) {
+            	//商品ID
+            	$sid=$array['shopid'].',';
+            	//购买数量
+            	$num=$array['num'];
+            	//商品名称
+            	$sname=db('shop')->where('id',$sid)->find();
+            	$shopname=$sname['goods'].',';
+            	//图片名
+            	$picname=$sname['img'].',';
+            	//单价
+            	$danjia=$sname['yuanjia'];
+            	//小计
+            	$xianjia=$danjia*$num.',';
+              	//图片的上传时间
+             	$stime=$sname['create_time'];
+
+        	    //生成订单时间 
+        	    $date=time();
+        	    // dump($list9);
+        	    
+          	  //查询用户ID
+          		$list=db('vip')->where('phone',$phone)->find();
+          		$id=$list['id'];
+          		//生成订单号
+        	    $order_id=date("ymdHis").str_pad($id,6,"0",STR_PAD_LEFT);
+
+        	    //添加订单未支付状态
+        	    $res=db('order')->insert(['vid'=>$id,'sid'=>$sid,'sname'=>$shopname,'tin'=>$order_id,'quantity'=>$num,'s_img_time'=>$stime,'picname'=>$picname,'xianjia'=>$xianjia,'danjia'=>$danjia,'create_time'=>$date,'total'=>$xianjia,'state'=>0]);
+
+        	    if($res>0){
+        	    	//在订单表查询新添加的订单信息
+        	    	$orders=db('order')->where('state',0)->where('tin',$order_id)->find();
+        	    	//dump($orders);
+
+        	    	foreach ($orders as &$value) {
+        	    		//如果返回的数据中有',' 
+        	    		if(substr_count($value,',')>0){
+        	    			//以逗号拆分并去除两边的','
+        	    			$value=explode(',',trim($value,','));
+        	    		}
+        	    	}
+        	    	// dump($orders);
+        	    	return view('',['orders'=>$orders,'user'=>$phone,'username'=>$username]);
+        	    }
+
+
+            }else{
+
+
             for ($i=0; $i < count($array['cart']); $i++) { 
+            	//用+号拆分赋给$arr
             	$arr[$i]=explode('+',$array['cart'][$i]);
             }
             // dump($arr);
+            
+            //获取$arr所有的商品ID
             $list1='';
             for ($i=0; $i < count($arr); $i++) { 
             	$list1.=$arr[$i]['0'].",";
             }
+
+            //通过传过来的ID查询购物车表的小计
             $list3=[];
+            //获取所有商品的小计用逗号拼接
             $list4='';
+            //获取总价
             $list7='';
             for ($i=0; $i < count($arr); $i++) { 
                 $list3[$i]=db('shopcart')->where('id',$arr[$i]['1'])->find();
             	$list4.=$list3[$i]['total'].",";
             	$list7+=$list3[$i]['total'];
             }
+
+            //获取购买数量
             $list2='';
             for ($i=0; $i < count($arr); $i++) {
             	$list2.=$list3[$i]['num'].",";
             }
+
+            //获取shop表的商品数据
             $list5=[];
+            //获取图片名
             $list6='';
             for ($i=0; $i < count($arr); $i++) { 
                 $list5[$i]=db('shop')->where('id',$arr[$i]['0'])->find();
             	$list6.=$list5[$i]['img'];
             }
+
+            //获取商品名称
             $list8='';
             for ($i=0; $i < count($arr); $i++) { 
             	$list8.=$list5[$i]['goods'].",";
             }
+
+            //获取商品单价
             $list9='';
             for ($i=0; $i < count($arr); $i++) { 
             	$list9.=$list5[$i]['yuanjia'].",";
             }
+
+            //查询shop表图片上传的时间戳
             $list10='';
             for ($i=0; $i < count($arr); $i++) { 
             	$list10.=$list5[$i]['create_time'].",";
             }
-            $date=date("ymdHis");
+
+            //生成订单时间 
+            $date=time();
             // dump($list9);
+            
+            //查询用户ID
+        	$list=db('vip')->where('phone',$phone)->find();
+        	$id=$list['id'];
+        	//生成订单号
             $order_id=date("ymdHis").str_pad($id,6,"0",STR_PAD_LEFT);
-            $res=db('order')->insert(['vid'=>$id,'sid'=>$list1,'sname'=>$list8,'tin'=>$order_id,'quantity'=>$list2,'picname'=>$list6,'xianjia'=>$list4,'danjia'=>$list9,'create_time'=>$date,'total'=>$list7,'state'=>0]);
+
+            //添加订单未支付状态
+            $res=db('order')->insert(['vid'=>$id,'sid'=>$list1,'sname'=>$list8,'tin'=>$order_id,'quantity'=>$list2,'s_img_time'=>$list10,'picname'=>$list6,'xianjia'=>$list4,'danjia'=>$list9,'create_time'=>$date,'total'=>$list7,'state'=>0]);
             // dump($res);
+            
+            //如果添加成功
             if($res>0){
+            	//在订单表查询新添加的订单信息
             	$orders=db('order')->where('state',0)->where('tin',$order_id)->find();
             	foreach ($orders as &$value) {
+            		//如果返回的数据中有',' 
             		if(substr_count($value,',')>0){
+            			//以逗号拆分并去除两边的','
             			$value=explode(',',trim($value,','));
             		}
             	}
-            	$orders['s_create_time']=explode(',',trim($list10,','));
+
+            	//图片文件需要，查询图片的添加时间并添加到返回的数据中
+            	//$orders['s_create_time']=explode(',',trim($list10,','));
             	// dump($orders);
+            	
+            	//添加至订单表后删除购物车表的已经下单的数据
             	foreach ($list3 as $value) {
             		$res=db('shopcart')->delete($value['id']);
             	}
             	return view('',['orders'=>$orders,'user'=>$phone,'username'=>$username]);
             }
+        }
         }
 
         public function succ(){
