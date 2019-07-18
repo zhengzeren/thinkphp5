@@ -16,60 +16,26 @@
         <![endif]-->
     </head>
     <body>
-        <div class="x-nav">
-          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
-            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
-        </div>
         <div class="layui-fluid">
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <form class="layui-form layui-col-space5">
-                                <div class="layui-inline layui-show-xs-block">
-                                    <input type="text" name="username"  placeholder="请输入商品名" autocomplete="off" class="layui-input">
-                                </div>
-                                <div class="layui-inline layui-show-xs-block">
-                                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="layui-card-body ">
                             <table class="layui-table layui-form">
                               <thead>
                                 <tr>
-                                  <th style="text-align:center;">商品名称</th>
+                                  <th style="text-align:center;">用户</th>
                                   <th style="text-align:center;">评论</th>
-                                  <th style="text-align:center;">状态</th>
-                                  <th style="text-align:center;">操作</th>
                               </thead>
                               <tbody>
                               	{volist name="list" id="com"}
                                 <tr>
-                                  <td style="text-align:center;">{$com.goods}</td>
-                                  <td style="text-align:center;">
-                                  	<a href="javaScript:;" onclick="xadmin.open('评价','{:url('admin/comment/sc')}?sid={$com.sid}',400,350)">
-                                        查看评价
-                                    </a>
-                                  </td>
-                                  <td class="td-status" style="text-align:center;">
-                                    <span class="layui-btn layui-btn-normal layui-btn-mini">未回复</span></td>
-                                  <td class="td-manage" style="text-align:center;">
-                                    <a onclick="member_stop(this,'10001')" href="javascript:;"  title="回复">
-                                      <i class="layui-icon">&#xe601;</i>
-                                    </a>
-                                  </td>
+                                  <td style="text-align:center;">{$com.username}</td>
+                                  <td style="text-align:center;">{$com.neirong}</td>
                                 </tr>
                                 {/volist}
                               </tbody>
                             </table>
-                        </div>
-                        <div class="layui-card-body ">
-                            <div class="page">
-                                <div>
-                                   {$list->render()}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

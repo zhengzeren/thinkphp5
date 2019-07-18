@@ -13,6 +13,8 @@
     <script src="__STATIC__/index/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/swiper.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/global.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/xadmin.js"></script>
+    <script src="__STATIC__/admin/lib/layui/layui.all.js" charset="utf-8"></script>
     <script src="__STATIC__/index/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
     <title>U袋网</title>
 </head>
@@ -21,16 +23,21 @@
     <div class="tab-header">
         <div class="inner">
             <div class="pull-left">
-                <div class="pull-left">嗨，欢迎来到<span class="cr">U袋网</span></div>
-                <a href="agent_level.html">网店代销</a>
-                <a href="temp_article/udai_article4.html">帮助中心</a>
+                <div class="pull-left">嗨，欢迎来到<span class="cr">全球优品</span></div>
             </div>
             <div class="pull-right">
-                <a href="login.html"><span class="cr">登录</span></a>
-                <a href="login.html?p=register">注册</a>
-                <a href="udai_welcome.html">我的U袋</a>
-                <a href="udai_order.html">我的订单</a>
-                <a href="udai_integral.html">积分平台</a>
+                {if condition="$user == null"}
+                <a href="{:url('index/login/index')}">
+                    <span class="cr">登录</span>
+                </a>
+                <a href="{:url('index/login/register')}">注册</a>
+                {else/}
+                <a href="udai_welcome.html"><img src="__STATIC__/index/images/icons/VIP.png" alt="" style="width:20px"> {$username}</a>
+                <a href="javascript:;" id="tc">
+                    <span id="outlogin">退出登录</span>
+                </a>
+                <a href="{:url('order/index')}">我的订单</a>
+                {/if}
             </div>
         </div>
     </div>
@@ -38,7 +45,7 @@
     <div class="bgf5 clearfix">
         <div class="top-user">
             <div class="inner">
-                <a class="logo" href="index.html"><img src="__STATIC__/index/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+                <a class="logo" href="{:url('index/index')}"><img src="__STATIC__/index/images/icons/logo.jfif" alt="U袋网" class="cover"></a>
                 <div class="title">个人中心</div>
             </div>
         </div>
@@ -50,40 +57,13 @@
                 <dl class="user-center__nav">
                     <dt>帐户信息</dt>
                     <a href="udai_setting.html"><dd>个人资料</dd></a>
-                    <a href="udai_treasurer.html"><dd>资金管理</dd></a>
-                    <a href="udai_integral.html"><dd>积分平台</dd></a>
                     <a href="udai_address.html"><dd>收货地址</dd></a>
-                    <a href="udai_coupon.html"><dd>我的优惠券</dd></a>
-                    <a href="udai_paypwd_modify.html"><dd>修改支付密码</dd></a>
                     <a href="udai_pwd_modify.html"><dd>修改登录密码</dd></a>
                 </dl>
                 <dl class="user-center__nav">
                     <dt>订单中心</dt>
                     <a href="udai_order.html"><dd class="active">我的订单</dd></a>
                     <a href="udai_collection.html"><dd>我的收藏</dd></a>
-                    <a href="udai_refund.html"><dd>退款/退货</dd></a>
-                </dl>
-                <dl class="user-center__nav">
-                    <dt>服务中心</dt>
-                    <a href="udai_mail_query.html"><dd>物流查询</dd></a>
-                    <a href=""><dd>数据自助下载</dd></a>
-                    <a href="temp_article/udai_article1.html"><dd>售后服务</dd></a>
-                    <a href="temp_article/udai_article2.html"><dd>配送服务</dd></a>
-                    <a href="temp_article/udai_article3.html"><dd>用户协议</dd></a>
-                    <a href="temp_article/udai_article4.html"><dd>常见问题</dd></a>
-                </dl>
-                <dl class="user-center__nav">
-                    <dt>新手上路</dt>
-                    <a href="temp_article/udai_article5.html"><dd>如何成为代理商</dd></a>
-                    <a href="temp_article/udai_article6.html"><dd>代销商上架教程</dd></a>
-                    <a href="temp_article/udai_article7.html"><dd>分销商常见问题</dd></a>
-                    <a href="temp_article/udai_article8.html"><dd>付款账户</dd></a>
-                </dl>
-                <dl class="user-center__nav">
-                    <dt>U袋网</dt>
-                    <a href="temp_article/udai_article10.html"><dd>企业简介</dd></a>
-                    <a href="temp_article/udai_article11.html"><dd>加入U袋</dd></a>
-                    <a href="temp_article/udai_article12.html"><dd>隐私说明</dd></a>
                 </dl>
             </div>
             <div class="pull-right">
@@ -93,12 +73,11 @@
                         <div class="order-panel">
                             <ul class="nav user-nav__title" role="tablist">
                                 <li role="presentation" class="nav-item active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">所有订单</a></li>
-                                <li role="presentation" class="nav-item "><a href="#pay" aria-controls="pay" role="tab" data-toggle="tab">待付款 <span class="cr">0</span></a></li>
-                                <li role="presentation" class="nav-item "><a href="#emit" aria-controls="emit" role="tab" data-toggle="tab">待发货 <span class="cr">0</span></a></li>
-                                <li role="presentation" class="nav-item "><a href="#take" aria-controls="take" role="tab" data-toggle="tab">待收货 <span class="cr">0</span></a></li>
-                                <li role="presentation" class="nav-item "><a href="#eval" aria-controls="eval" role="tab" data-toggle="tab">待评价 <span class="cr">0</span></a></li>
+                                <li role="presentation" class="nav-item "><a href="#pay" aria-controls="pay" role="tab" data-toggle="tab">待付款 <span class="cr">{$unpay}</span></a></li>
+                                <li role="presentation" class="nav-item "><a href="#emit" aria-controls="emit" role="tab" data-toggle="tab">待发货 <span class="cr">{$tobe}</span></a></li>
+                                <li role="presentation" class="nav-item "><a href="#take" aria-controls="take" role="tab" data-toggle="tab">待收货 <span class="cr">{$received}</span></a></li>
+                                <li role="presentation" class="nav-item "><a href="#eval" aria-controls="eval" role="tab" data-toggle="tab">待评价 <span class="cr">{$evaluated}</span></a></li>
                             </ul>
-
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="all">
                                     <table class="table text-center">
@@ -110,16 +89,17 @@
                                             <th width="120">交易状态</th>
                                             <th width="120">交易操作</th>
                                         </tr>
+                                        {if !empty($list)}
                                         {volist name="list" id="order"}
                                         <tr class="order-item">
                                             <td>
                                                 <label>
-                                                    <a href="udai_order_detail.html" class="num">
+                                                    <a href="udai_order_detail.html" class="num" style="display:inline-block;width:110%;">
                                                         {php}
                                                             $sj=date('Y-m-d H:i:s',$order['create_time']);
                                                         {/php}
                                                         {$sj}
-                                                        订单号:{$order.tin} 
+                                                        订单号:{$order.tin}
                                                     </a>
                                                     <div class="card">
                                                         {foreach $order['picname'] as $k => $v}
@@ -137,29 +117,74 @@
                                                     </div>
                                                 </label>
                                             </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
-                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
+                                            <td>
+                                                {foreach $order['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        ￥{$order['danjia'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>
+                                                {foreach $order['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        {$order['quantity'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td style="line-height:50px;">
+                                                ￥{$order.total}<br>
+                                                <span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span>
+                                            </td>
+                                            {if $order['state']==0}
                                             <td class="state">
-                                                <a class="but c6">等待付款</a>
-                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
+                                                <a class="but c6" style="line-height:50px;">等待付款</a>
+                                                <a href="udai_order_detail.html" class="but c9" style="line-height:50px;">订单详情</a>
                                             </td>
                                             <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="udai_shopcart_pay.html" class="but but-primary">立即付款</a>
-                                                <!-- <a href="" class="but but-link">评价</a> -->
-                                                <a href="" class="but c3">取消订单</a>
+                                                <a href="{:url('bay/pagepay')}?id={$order.id}" class="but but-primary" style="width:80px;margin-top:10px;">立即付款</a>
                                             </td>
+                                            {elseif $order['state']==1}
+                                            <td class="state">
+                                                <a class="but c6" style="line-height:50px;">等待发货</a>
+                                                <a href="udai_order_detail.html" class="but c9" style="line-height:50px;">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <a href="javascript:;" class="but but-primary" style="width:80px;margin-top:10px;">确认收货</a>
+                                            </td>
+                                            {elseif $order['state']==2}
+                                            <td class="state">
+                                                <a class="but c6" style="line-height:50px;">等待收货</a>
+                                                <a href="udai_order_detail.html" class="but c9" style="line-height:50px;">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <a href="javascript:;" onclick="shouhuo({$order.id})" class="but but-primary" style="width:80px;margin-top:10px;" id="qrsh">确认收货</a>
+                                            </td>
+                                            {elseif $order['state']==3}
+                                            <td class="state">
+                                                <a class="but c6" style="line-height:50px;">交易成功</a>
+                                                <a href="udai_order_detail.html" class="but c9" style="line-height:50px;">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <a href="javascript:;" onclick="xadmin.open('评价商品','{:url('order/pingjia')}?id={$order.id}',600,300)" class="but but-link" style="width:80px;margin-top:10px;">评价</a>
+                                            </td>
+                                            {/if}
                                         </tr>
                                         {/volist}
+                                        {else /}
+                                        <tr class="order-empty">
+                                            <td colspan='6'>
+                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="{:url('index/index')}">要不瞧瞧去？</a></div>
+                                            </td>
+                                        </tr>
+                                        {/if}
                                     </table>
-                                    <div class="page text-right clearfix" style="margin-top: 40px">
+                                    <!-- <div class="page text-right clearfix" style="margin-top: 40px">
                                         <a class="disabled">上一页</a>
                                         <a class="select">1</a>
                                         <a href="">2</a>
                                         <a href="">3</a>
                                         <a class="" href="">下一页</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="pay">
                                     <table class="table text-center">
@@ -171,9 +196,69 @@
                                             <th width="120">交易状态</th>
                                             <th width="120">交易操作</th>
                                         </tr>
-                                        <tr class="order-empty"><td colspan='6'>
-                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="item_category.html">要不瞧瞧去？</a></div>
-                                        </td></tr>
+                                        {if !empty($list1)}
+                                        {volist name="list1" id="order1"}
+                                        <tr class="order-item">
+                                            <td>
+                                                <label>
+                                                    <a href="udai_order_detail.html" class="num">
+                                                        {php}
+                                                            $sj=date('Y-m-d H:i:s',$order1['create_time']);
+                                                        {/php}
+                                                        {$sj}
+                                                        订单号:{$order1.tin}
+                                                    </a>
+                                                    <div class="card">
+                                                        {foreach $order1['picname'] as $k => $v}
+                                                            {php}
+                                                                $time=date('Ymd',$order1['s_img_time'][$k]);
+                                                                $shopname=$order1['sname'][$k];
+                                                            {/php}
+                                                            <div class="img">
+                                                                <img src="__STATIC__/upload/image/{$time}/{$v}" alt="" class="cover">
+                                                            </div>
+                                                            <div class="name ep2" style="height:80px;line-height:78px;">
+                                                                {$shopname}
+                                                            </div>
+                                                        {/foreach}
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                {foreach $order1['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        ￥{$order1['danjia'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>
+                                                {foreach $order1['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        {$order1['quantity'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
+                                            <td class="state">
+                                                <a class="but c6">等待付款</a>
+                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
+                                                <a href="udai_shopcart_pay.html" class="but but-primary">立即付款</a>
+                                                <!-- <a href="" class="but but-link">评价</a> -->
+                                                <a href="" class="but c3">取消订单</a>
+                                            </td>
+                                            
+                                        </tr>
+                                        {/volist}
+                                        {else /}
+                                        <tr class="order-empty">
+                                            <td colspan='6'>
+                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="{:url('index/index')}">要不瞧瞧去？</a></div>
+                                            </td>
+                                        </tr>
+                                        {/if}
                                     </table>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="emit">
@@ -186,92 +271,68 @@
                                             <th width="120">交易状态</th>
                                             <th width="120">交易操作</th>
                                         </tr>
+                                        {if !empty($list2)}
+                                        {volist name="list2" id="order2"}
                                         <tr class="order-item">
                                             <td>
                                                 <label>
                                                     <a href="udai_order_detail.html" class="num">
-                                                        2017-03-30 订单号: 2669901385864042
+                                                        {php}
+                                                            $sj=date('Y-m-d H:i:s',$order2['create_time']);
+                                                        {/php}
+                                                        {$sj}
+                                                        订单号:{$order2.tin}
                                                     </a>
                                                     <div class="card">
-                                                        <div class="img"><img src="__STATIC__/index/images/temp/item-img_1.jpg" alt="" class="cover"></div>
-                                                        <div class="name ep2">纯色圆领短袖T恤活动衫弹力柔软纯色圆领短袖T恤</div>
-                                                        <div class="format">颜色分类：深棕色  尺码：均码</div>
-                                                        <div class="favour">使用优惠券：优惠¥2.00</div>
+                                                        {foreach $order2['picname'] as $k => $v}
+                                                            {php}
+                                                                $time=date('Ymd',$order2['s_img_time'][$k]);
+                                                                $shopname=$order2['sname'][$k];
+                                                            {/php}
+                                                            <div class="img">
+                                                                <img src="__STATIC__/upload/image/{$time}/{$v}" alt="" class="cover">
+                                                            </div>
+                                                            <div class="name ep2" style="height:80px;line-height:78px;">
+                                                                {$shopname}
+                                                            </div>
+                                                        {/foreach}
                                                     </div>
                                                 </label>
                                             </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
+                                            <td>
+                                                {foreach $order2['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        ￥{$order2['danjia'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>
+                                                {foreach $order2['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        {$order2['quantity'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
                                             <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
                                             <td class="state">
                                                 <a class="but c6">等待发货</a>
                                                 <a href="udai_order_detail.html" class="but c9">订单详情</a>
                                             </td>
                                             <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="udai_order_receipted.html" class="but but-primary">确认收货</a>
-                                                <a href="udai_apply_return.html" class="but c3">退款/退货</a>
+                                                <a href="udai_shopcart_pay.html" class="but but-primary">确认收货</a>
                                             </td>
                                         </tr>
-                                        <tr class="order-item">
-                                            <td>
-                                                <label>
-                                                    <a href="udai_order_detail.html" class="num">
-                                                        2017-03-30 订单号: 2669901385864042
-                                                    </a>
-                                                    <div class="card">
-                                                        <div class="img"><img src="__STATIC__/index/images/temp/item-img_1.jpg" alt="" class="cover"></div>
-                                                        <div class="name ep2">纯色圆领短袖T恤活动衫弹力柔软纯色圆领短袖T恤</div>
-                                                        <div class="format">颜色分类：深棕色  尺码：均码</div>
-                                                        <div class="favour">使用优惠券：优惠¥2.00</div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
-                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
-                                            <td class="state">
-                                                <a class="but c6">等待发货</a>
-                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
-                                            </td>
-                                            <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="udai_order_receipted.html" class="but but-primary">确认收货</a>
-                                                <a href="udai_apply_return.html" class="but c3">退款/退货</a>
+                                        {/volist}
+                                        {else /}
+                                        <tr class="order-empty">
+                                            <td colspan='6'>
+                                            <div class="empty-msg">没有订单需要确认收货，家里好像缺了点什么！<br><a href="{:url('index/index')}">要不瞧瞧去？</a></div>
                                             </td>
                                         </tr>
-                                        <tr class="order-item">
-                                            <td>
-                                                <label>
-                                                    <a href="udai_order_detail.html" class="num">
-                                                        2017-03-30 订单号: 2669901385864042
-                                                    </a>
-                                                    <div class="card">
-                                                        <div class="img"><img src="__STATIC__/index/images/temp/item-img_1.jpg" alt="" class="cover"></div>
-                                                        <div class="name ep2">纯色圆领短袖T恤活动衫弹力柔软纯色圆领短袖T恤</div>
-                                                        <div class="format">颜色分类：深棕色  尺码：均码</div>
-                                                        <div class="favour">使用优惠券：优惠¥2.00</div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
-                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
-                                            <td class="state">
-                                                <a class="but c6">等待发货</a>
-                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
-                                            </td>
-                                            <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="udai_order_receipted.html" class="but but-primary">确认收货</a>
-                                                <a href="udai_apply_return.html" class="but c3">退款/退货</a>
-                                            </td>
-                                        </tr>
+                                        {/if}
                                     </table>
                                     <div class="page text-right clearfix" style="margin-top: 40px">
-                                        <a class="disabled">上一页</a>
-                                        <a class="select">1</a>
-                                        <a class="disabled">下一页</a>
+                                        
                                     </div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="take">
@@ -284,9 +345,66 @@
                                             <th width="120">交易状态</th>
                                             <th width="120">交易操作</th>
                                         </tr>
-                                        <tr class="order-empty"><td colspan='6'>
-                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="item_category.html">要不瞧瞧去？</a></div>
-                                        </td></tr>
+                                        {if !empty($list3)}
+                                        {volist name="list3" id="order3"}
+                                        <tr class="order-item">
+                                            <td>
+                                                <label>
+                                                    <a href="udai_order_detail.html" class="num">
+                                                        {php}
+                                                            $sj=date('Y-m-d H:i:s',$order3['create_time']);
+                                                        {/php}
+                                                        {$sj}
+                                                        订单号:{$order3.tin}
+                                                    </a>
+                                                    <div class="card">
+                                                        {foreach $order3['picname'] as $k => $v}
+                                                            {php}
+                                                                $time=date('Ymd',$order3['s_img_time'][$k]);
+                                                                $shopname=$order3['sname'][$k];
+                                                            {/php}
+                                                            <div class="img">
+                                                                <img src="__STATIC__/upload/image/{$time}/{$v}" alt="" class="cover">
+                                                            </div>
+                                                            <div class="name ep2" style="height:80px;line-height:78px;">
+                                                                {$shopname}
+                                                            </div>
+                                                        {/foreach}
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                {foreach $order3['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        ￥{$order3['danjia'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>
+                                                {foreach $order3['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        {$order3['quantity'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
+                                            <td class="state">
+                                                <a class="but c6">等待收货</a>
+                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <a href="udai_shopcart_pay.html" class="but but-primary">确认收获</a>
+                                            </td>
+                                            
+                                        </tr>
+                                        {/volist}
+                                        {else /}
+                                        <tr class="order-empty">
+                                            <td colspan='6'>
+                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="{:url('index/index')}">要不瞧瞧去？</a></div>
+                                            </td>
+                                        </tr>
+                                        {/if}
                                     </table>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="eval">
@@ -299,6 +417,65 @@
                                             <th width="120">交易状态</th>
                                             <th width="120">交易操作</th>
                                         </tr>
+                                       {if !empty($list4)}
+                                        {volist name="list4" id="order4"}
+                                        <tr class="order-item">
+                                            <td>
+                                                <label>
+                                                    <a href="udai_order_detail.html" class="num">
+                                                        {php}
+                                                            $sj=date('Y-m-d H:i:s',$order4['create_time']);
+                                                        {/php}
+                                                        {$sj}
+                                                        订单号:{$order4.tin}
+                                                    </a>
+                                                    <div class="card">
+                                                        {foreach $order4['picname'] as $k => $v}
+                                                            {php}
+                                                                $time=date('Ymd',$order4['s_img_time'][$k]);
+                                                                $shopname=$order4['sname'][$k];
+                                                            {/php}
+                                                            <div class="img">
+                                                                <img src="__STATIC__/upload/image/{$time}/{$v}" alt="" class="cover">
+                                                            </div>
+                                                            <div class="name ep2" style="height:80px;line-height:78px;">
+                                                                {$shopname}
+                                                            </div>
+                                                        {/foreach}
+                                                    </div>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                {foreach $order4['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        ￥{$order4['danjia'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>
+                                                {foreach $order4['picname'] as $k => $v}
+                                                    <div style="width:110px;height:80px;line-height:50px;">
+                                                        {$order4['quantity'][$k]}
+                                                    </div>
+                                                {/foreach}
+                                            </td>
+                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
+                                            <td class="state">
+                                                <a class="but c6">交易成功</a>
+                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
+                                            </td>
+                                            <td class="order">
+                                                <a href="" class="but but-link">评价</a>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+                                        {else /}
+                                        <tr class="order-empty">
+                                            <td colspan='6'>
+                                            <div class="empty-msg">最近没有任何订单，家里好像缺了点什么！<br><a href="{:url('index/index')}">要不瞧瞧去？</a></div>
+                                            </td>
+                                        </tr>
+                                        {/if}<!-- 
                                         <tr class="order-item">
                                             <td>
                                                 <label>
@@ -326,68 +503,10 @@
                                                 <a href="" class="but but-link">评价</a>
                                                 <a href="" class="but c3">取消订单</a>
                                             </td>
-                                        </tr>
-                                        <tr class="order-item">
-                                            <td>
-                                                <label>
-                                                    <a href="udai_order_detail.html" class="num">
-                                                        2017-03-30 订单号: 2669901385864042
-                                                    </a>
-                                                    <div class="card">
-                                                        <div class="img"><img src="__STATIC__/index/images/temp/item-img_1.jpg" alt="" class="cover"></div>
-                                                        <div class="name ep2">纯色圆领短袖T恤活动衫弹力柔软纯色圆领短袖T恤</div>
-                                                        <div class="format">颜色分类：深棕色  尺码：均码</div>
-                                                        <div class="favour">使用优惠券：优惠¥2.00</div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
-                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
-                                            <td class="state">
-                                                <a class="but c6">交易成功</a>
-                                                <a href="udai_mail_query.html" class="but cr">查看物流</a>
-                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
-                                            </td>
-                                            <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="" class="but but-link">评价</a>
-                                                <a href="" class="but c3">取消订单</a>
-                                            </td>
-                                        </tr>
-                                        <tr class="order-item">
-                                            <td>
-                                                <label>
-                                                    <a href="udai_order_detail.html" class="num">
-                                                        2017-03-30 订单号: 2669901385864042
-                                                    </a>
-                                                    <div class="card">
-                                                        <div class="img"><img src="__STATIC__/index/images/temp/item-img_1.jpg" alt="" class="cover"></div>
-                                                        <div class="name ep2">纯色圆领短袖T恤活动衫弹力柔软纯色圆领短袖T恤</div>
-                                                        <div class="format">颜色分类：深棕色  尺码：均码</div>
-                                                        <div class="favour">使用优惠券：优惠¥2.00</div>
-                                                    </div>
-                                                </label>
-                                            </td>
-                                            <td>￥100</td>
-                                            <td>1</td>
-                                            <td>￥1000<br><span class="fz12 c6 text-nowrap">(含运费: ¥0.00)</span></td>
-                                            <td class="state">
-                                                <a class="but c6">交易成功</a>
-                                                <a href="udai_mail_query.html" class="but cr">查看物流</a>
-                                                <a href="udai_order_detail.html" class="but c9">订单详情</a>
-                                            </td>
-                                            <td class="order">
-                                                <div class="del"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></div>
-                                                <a href="" class="but but-link">评价</a>
-                                                <a href="" class="but c3">取消订单</a>
-                                            </td>
-                                        </tr>
+                                        </tr> -->
                                     </table>
                                     <div class="page text-right clearfix" style="margin-top: 40px">
-                                        <a class="disabled">上一页</a>
-                                        <a class="select">1</a>
-                                        <a class="disabled">下一页</a>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -497,3 +616,17 @@
     </div>
 </body>
 </html>
+<script>
+    function shouhuo (id) {
+        //console.log(id);
+        layer.confirm('确认已经收货？',function(index){
+            $.post("{:url('order/edit')}",{id:id},function(data){
+                if(data>0){
+                    layer.msg('收货成功', {icon: 1});
+                    // 可以对父窗口进行刷新
+                    xadmin.father_reload();
+                }
+            },'text')
+        });
+    }
+</script> 

@@ -12,6 +12,7 @@
     <script src="__STATIC__/index/js/jquery.1.12.4.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/bootstrap.min.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/swiper.min.js" charset="UTF-8"></script>
+    <script src="__STATIC__/admin/lib/layui/layui.all.js" charset="utf-8"></script>
     <script src="__STATIC__/index/js/global.js" charset="UTF-8"></script>
     <script src="__STATIC__/index/js/jquery.DJMask.2.1.1.js" charset="UTF-8"></script>
     <title>世界优品</title>
@@ -34,7 +35,7 @@
                 <a href="javascript:;" id="tc">
                     <span id="outlogin">退出登录</span>
                 </a>
-                <a href="udai_order.html">我的订单</a>
+                <a href="{:url('order/index')}">我的订单</a>
                 {/if}
             </div>
         </div>
@@ -42,7 +43,7 @@
     <!-- 搜索栏 -->
     <div class="top-search">
         <div class="inner">
-            <a class="logo" href="index.html"><img src="__STATIC__/index/images/icons/logo.jpg" alt="U袋网" class="cover"></a>
+            <a class="logo" href="javascript:;"><img src="__STATIC__/index/images/icons/logo.jfif" alt="U袋网" class="cover"></a>
             <div class="search-box">
                 <form class="input-group">
                     <input placeholder="Ta们都在搜U袋网" type="text">
@@ -52,7 +53,7 @@
                         </button>
                     </span>
                 </form>
-                <p class="help-block text-nowrap">
+                <!-- <p class="help-block text-nowrap">
                     <a href="">连衣裙</a>
                     <a href="">裤</a>
                     <a href="">衬衫</a>
@@ -60,12 +61,18 @@
                     <a href="">女包</a>
                     <a href="">家居服</a>
                     <a href="">2017新款</a>
-                </p>
+                </p> -->
             </div>
             <div class="cart-box">
-                <a href="udai_shopcart.html" class="cart-but">
+            	{if condition="$user == null"}
+            	<a href="javascript:;" class="cart-but" id="meidl">
                     <i class="iconfont icon-shopcart cr fz16"></i> 购物车 0 件
                 </a>
+                {else/}
+                <a href="{:url('bay/index')}" class="cart-but">
+                    <i class="iconfont icon-shopcart cr fz16"></i> 购物车 {$baynum} 件
+                </a>
+                {/if}
             </div>
         </div>
     </div>
@@ -103,172 +110,6 @@
                         </div>
                     </div>
                     {/foreach}
-                    <!-- <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-fushi ce"></i> 男装
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>下装</li>
-                            <li>上装</li>
-                            <li>套装</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">下装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">上装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">套装：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-bao ce"></i> 包包
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>女士包包</li>
-                            <li>男士包包</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">女士包包：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男士包包：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-kid ce"></i> 童装
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>女童</li>
-                            <li>男童</li>
-                            <li>男女童鞋</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">女童：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男童：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">男女童鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cat-box">
-                        <div class="title">
-                            <i class="iconfont icon-shoes ce"></i> 鞋靴
-                        </div>
-                        <ul class="cat-list clearfix">
-                            <li>男鞋</li>
-                            <li>女鞋</li>
-                            <li>儿童鞋</li>
-                        </ul>
-                        <div class="cat-list__deploy">
-                            <div class="deploy-box">
-                                <div class="genre-box clearfix">
-                                    <span class="title">男鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">女鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                                <div class="genre-box clearfix">
-                                    <span class="title">儿童鞋：</span>
-                                    <div class="genre-list">
-                                        <a href="">牛仔裤</a>
-                                        <a href="">短裤</a>
-                                        <a href="">休闲裤</a>
-                                        <a href="">打底裤</a>
-                                        <a href="">丝袜</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
             </div>
         </div>
     </div>
@@ -692,35 +533,31 @@
     </script>
     <!-- 右侧菜单 -->
     <div class="right-nav">
+
+		{if condition="$user == null"}
         <ul class="r-with-gotop">
             <li class="r-toolbar-item">
-                <a href="udai_welcome.html" class="r-item-hd">
+                <a href="javascript:;" class="r-item-hd" id="meidl">
                     <i class="iconfont icon-user"></i>
                     <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="udai_shopcart.html" class="r-item-hd">
-                    <i class="iconfont icon-cart" data-badge="10"></i>
+                <a href="javascript:;" class="r-item-hd" id="meidl">
+                    <i class="iconfont icon-cart" data-badge="0"></i>
                     <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="udai_collection.html" class="r-item-hd">
+                <a href="javascript:;" class="r-item-hd" id="meidl">
                     <i class="iconfont icon-aixin"></i>
                     <div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item">
-                <a href="" class="r-item-hd">
+                <a href="javascript:;" class="r-item-hd">
                     <i class="iconfont icon-liaotian"></i>
                     <div class="r-tip__box"><span class="r-tip-text">联系客服</span></div>
-                </a>
-            </li>
-            <li class="r-toolbar-item">
-                <a href="issues.html" class="r-item-hd">
-                    <i class="iconfont icon-liuyan"></i>
-                    <div class="r-tip__box"><span class="r-tip-text">留言反馈</span></div>
                 </a>
             </li>
             <li class="r-toolbar-item to-top">
@@ -728,6 +565,38 @@
                 <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
             </li>
         </ul>
+        {else/}
+	    <ul class="r-with-gotop">
+	        <li class="r-toolbar-item">
+	            <a href="udai_welcome.html" class="r-item-hd">
+	                <i class="iconfont icon-user"></i>
+	                <div class="r-tip__box"><span class="r-tip-text">用户中心</span></div>
+	            </a>
+	        </li>
+	        <li class="r-toolbar-item">
+	            <a href="{:url('bay/index')}" class="r-item-hd">
+	                <i class="iconfont icon-cart" data-badge="{$baynum}"></i>
+	                <div class="r-tip__box"><span class="r-tip-text">购物车</span></div>
+	            </a>
+	        </li>
+	        <li class="r-toolbar-item">
+	            <a href="udai_collection.html" class="r-item-hd">
+	                <i class="iconfont icon-aixin"></i>
+	                <div class="r-tip__box"><span class="r-tip-text">我的收藏</span></div>
+	            </a>
+	        </li>
+	        <li class="r-toolbar-item">
+	            <a href="javascript:;" class="r-item-hd">
+	                <i class="iconfont icon-liaotian"></i>
+	                <div class="r-tip__box"><span class="r-tip-text">联系客服</span></div>
+	            </a>
+	        </li>
+	        <li class="r-toolbar-item to-top">
+	            <i class="iconfont icon-top"></i>
+	            <div class="r-tip__box"><span class="r-tip-text">返回顶部</span></div>
+	        </li>
+	    </ul>
+	    {/if}
     </div>
     <!-- 底部信息 -->
     <div class="footer">
@@ -796,5 +665,9 @@
             location="{:url('index/index')}";
             });
         }
+    });
+
+    $("#meidl").click(function(event) {
+        layer.msg('您还没有登录', {icon: 1}); 
     });
 </script>

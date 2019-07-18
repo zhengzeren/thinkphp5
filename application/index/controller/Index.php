@@ -31,9 +31,13 @@
             //轮播图
             $images=db('banner')->where('state',1)->select();
 
-            //楼层内容 -- 沙发
-            $sofa=db('shop')->where('type',143)->where('state',1)->select();
-            return view('',['user'=>$phone,'username'=>$username,'arr'=>$arr,'images'=>$images,'sofa'=>$sofa]);
+            //楼层内容 -- 沙发查询最新的6条
+            $sofa=db('shop')->where('type',143)->where('state',1)->limit(6)->select();
+
+            //购物车数量
+            $baynum=db('shopcart')->count();
+            //dump($baynum);
+            return view('',['user'=>$phone,'username'=>$username,'arr'=>$arr,'images'=>$images,'sofa'=>$sofa,'baynum'=>$baynum]);
         }
     }
  ?>

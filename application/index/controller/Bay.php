@@ -90,29 +90,29 @@
             }
 
             //获取购物车页面传过来的商品ID和购物车ID赋给array数组
-            $array=input('post.');
+            $array=input('post.'); 
             if (count($array)>1) {
             	//商品ID
             	$sid=$array['shopid'].',';
             	//购买数量
-            	$num=$array['num'];
+            	$num=$array['num'].',';
             	//商品名称
             	$sname=db('shop')->where('id',$sid)->find();
             	$shopname=$sname['goods'].',';
             	//图片名
             	$picname=$sname['img'].',';
             	//单价
-            	$danjia=$sname['yuanjia'];
+            	$danjia=$sname['yuanjia'].',';
             	//小计
             	$xianjia=$danjia*$num.',';
               	//图片的上传时间
-             	$stime=$sname['create_time'];
+             	$stime=$sname['create_time'].',';
 
         	    //生成订单时间 
         	    $date=time();
         	    // dump($list9);
         	    
-          	  //查询用户ID
+          	  	//查询用户ID
           		$list=db('vip')->where('phone',$phone)->find();
           		$id=$list['id'];
           		//生成订单号
@@ -262,7 +262,22 @@
         }
 
         public function pagepay(){
-        	    //商户订单号，商户网站订单系统中唯一订单号，必填
+        		if (isset($_GET['id'])) {
+        			$id=$_GET['id'];
+        			$list=db('order')->where('id',$id)->find();
+        			//商户订单号，商户网站订单系统中唯一订单号，必填
+	        	    $out_trade_no = trim($list['tin']);
+
+	        	    //订单名称，必填
+	        	    $subject = trim($list['sname']);
+
+	        	    //付款金额，必填
+	        	    $total_amount = trim($list['total']);
+
+	        	    //商品描述，可空
+	        	    $body = trim($list['sname']);
+        		}else{
+        			//商户订单号，商户网站订单系统中唯一订单号，必填
         	    $out_trade_no = trim($_POST['WIDout_trade_no']);
 
         	    //订单名称，必填
@@ -273,6 +288,8 @@
 
         	    //商品描述，可空
         	    $body = trim($_POST['WIDbody']);
+        		}
+        	    
 
         		//构造参数
         		$payRequestBuilder = new \AlipayTradePagePayContentBuilder();

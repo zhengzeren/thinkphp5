@@ -37,6 +37,31 @@
             }
         }
 
+        public function edit(){
+        	//dump(input('get.id'));
+        	$id=input('get.id');
+        	$list=ShopModel::where('id',$id)->select();
+
+        	$list1=db('type')->select();
+            // dump($list1);
+            $arr=[];
+            for ($i=0; $i <count($list1) ; $i++) { 
+                //判断Path以','(逗号)分隔有几位 substr_count()
+                if (substr_count($list1[$i]['path'],',')>2) {
+                    $arr[$i]['name']=$list1[$i]['name'];
+                    $arr[$i]['id']=$list1[$i]['id'];
+                }
+            }
+        	return view('',['list'=>$list,'arr'=>$arr,'editid'=>$id]);
+        }
+
+        public function editadd(){
+        	//dump(input('post.'));
+        	$id=input('post.id');
+        	$res = ShopModel::where('id',$id)->update(input('post.'));
+        	return $res;
+        }
+
         public function shopadd(){
             $list1=db('type')->select();
             // dump($list1);
